@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/pro.dir/main.c.o CMakeFiles/pro.dir/estado.c.o  -o pro 

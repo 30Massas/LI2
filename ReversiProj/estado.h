@@ -29,9 +29,9 @@ typedef struct estado {
 
 
 void printa(ESTADO);
-verificajogada (ESTADO e);
-ESTADO joga (ESTADO e, int x, int y);
-
+int verificajogada (ESTADO *e, int x, int y);
+void joga (ESTADO *e, int x, int y);
+void poepeca (ESTADO *e,int x, int y);
 
 
 

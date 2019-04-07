@@ -9,8 +9,8 @@ int main() {
     char mdj;
     int jogador = 0;
 
-    //printf("Insira o modo de jogo \n0-> manual, 1-> contra computador, outra-> abrir jogo\n");
-   // scanf("%c", &mdj);
+    printf("=>");
+    scanf("%c", &mdj); // Tipo de Jogo
     ESTADO
     e = {0};
     e.modo = mdj;
@@ -20,46 +20,82 @@ int main() {
         e.grelha[3][3] = VALOR_O;
         e.grelha[4][4] = VALOR_O;
 
+    if(mdj== 'M')  // Modo Manual
+    {
         do {
-            if (jogador%2 == 0) {
+            /*if (jogador%2 == 0) {
                 printf("Jogador X:\n=>");
                 e.peca = VALOR_X;
             }
             else {
                 printf("Jogador O:\n=>");
                 e.peca = VALOR_O;
-            }
+            }*/
 
-            fgets(linha,50,stdin);
+
+            fgets(linha, 50, stdin);
             // scanf("%s",linha);
             switch (toupper(linha[0])) {
-                case '?' : {
-                    printf("J x y // Jogar [linha] [coluna]\nT // Obter uma dica\n //");
+                case '?' :
+                    {
+                    printf("J x y // Jogar [linha] [coluna]\n");
+                    printf("P // Imprimir estado do jogo\n");
+                    printf("N // Criar novo jogo\n");
+                    printf("S // Colocar pontos nos locais de jogada válida\n");
+                    printf("H // Dar sugestão de jogada\n");
+                    printf("U // Desfazer jogada anterior\n");
                     break;
                 }
-                case 'J' : {
+                case 'J' :
+                    {
                     sscanf(linha, "%c %d %d", &c1, &x, &y);
-                    if (verificajogada(&e,x-1,y-1)) {
+                    if (verificajogada(&e, x - 1, y - 1))
+                    {
                         joga(&e, x - 1, y - 1);
                         poepeca(&e, x - 1, y - 1);
                         printa(e);
-                        jogador ++;
+                        jogador++;
                     }
-                    else printf("introduza uma jogada válida\n");
+                    else printf("iJogada inválida. Introduza uma jgoada válida.\n");
                     break;
                 }
-                case 'P' : {
+                case 'P' :
+                    {
                     printa(e);
                     break;
                 }
-            }
+                case 'N' :
+                    { // cria novo jogo
 
+                }
+                case 'S' :
+                    { // coloca pontos nos sítios de jogadas válidas
+
+                }
+                case 'U' :
+                    { // desfaz a jogada anterior
+
+                }
+                case 'H' :
+                    { // coloca pontos de interrogação em locais sugeridos para jogar
+
+                }
+            }
         } while (toupper(linha[0] != 'Q'));
+    }
+    else
+        { // Modo VS Bot
+        do{
+
+        } while (toupper((linha[0] != 'Q')));
+    }
+
+
+}
 
    // else if (mdj == '1');
 
 
-}
 
 /*{
     char mdj;

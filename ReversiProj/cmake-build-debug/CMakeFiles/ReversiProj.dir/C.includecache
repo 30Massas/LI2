@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/joao/LI2/ReversiProj/estado.c
-stdio.h
--
-estado.h
-/home/joao/LI2/ReversiProj/estado.h
-
 /home/joao/LI2/ReversiProj/estado.h
 
 /home/joao/LI2/ReversiProj/main.c

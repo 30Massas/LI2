@@ -48,26 +48,29 @@ void joga (ESTADO *e, int x, int y){
     // modificar para a direita--------------------------
     while (e->grelha[l][c+1] == p && c < 8) c++;
     if (c==8);
-    else for(;c!=y;c--) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l][c+1] == e->peca) for(;c!=y;c--) e->grelha[l][c] = e->peca;
+    else;
     //----------------------------------------------------
     c=y,l=x;
     // modificar para a esquerda-------------------------
     while (e->grelha[l][c-1] == p && c > 0) c--;
     if (c==0);
-    else for (;c!=y;c++) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l][c-1] == e->peca) for (;c!=y;c++) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar para baixo--------------------------------
     while (e->grelha[l+1][c] == p && l < 8) l++;
     if (l == 8);
-    else for (;l!=x;l--) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l+1][c] == e->peca) for (;l!=x;l--) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar para cima
     while (e->grelha[l-1][c] == p && l > 0) l--;
     if (l == 0);
-    else for (;l!=x;l++) e->grelha[l][c] = e->peca;
-
+    else if (e->grelha[l-1][c] == e->peca) for (;l!=x;l++) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar cima direita
@@ -76,7 +79,8 @@ void joga (ESTADO *e, int x, int y){
         c++;
     }
     if (l == 0 || c == 8 );
-    else for (;l!=x;l++,c--) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l-1][c+1] == e->peca) for (;l!=x;l++,c--) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar cima esquerda
@@ -85,7 +89,8 @@ void joga (ESTADO *e, int x, int y){
         c--;
     }
     if (l == 0 || c == 0 );
-    else for (;l!=x;l++,c++) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l-1][c-1] == e->peca) for (;l!=x;l++,c++) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar baixo esquerda
@@ -94,7 +99,8 @@ void joga (ESTADO *e, int x, int y){
         c--;
     }
     if (l == 8 || c == 0 );
-    else for (;l!=x;c++,l--) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l+1][c-1] == e->peca) for (;l!=x;c++,l--) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
     c=y,l=x;
     // modificar baixo direita
@@ -103,7 +109,8 @@ void joga (ESTADO *e, int x, int y){
         c++;
     }
     if (l == 8 || c == 8 );
-    else for (;l!=x;l--,c--) e->grelha[l][c] = e->peca;
+    else if (e->grelha[l+1][c+1] == e->peca) for (;l!=x;l--,c--) e->grelha[l][c] = e->peca;
+    else;
     //-----------------------------------------------------
 }
 
@@ -179,3 +186,5 @@ int verificajogada (ESTADO *e, int x, int y) {
 
     return flag;
 }
+
+

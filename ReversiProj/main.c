@@ -7,12 +7,13 @@ int main() {
     char linha[50];
     int x, y;
     char mdj;
-    printf("Insira o modo de jogo \n0-> manual, 1-> contra computador, outra-> abrir jogo\n");
-    scanf("%c", &mdj);
+    int jogador = 0;
+
+    //printf("Insira o modo de jogo \n0-> manual, 1-> contra computador, outra-> abrir jogo\n");
+   // scanf("%c", &mdj);
     ESTADO
     e = {0};
     e.modo = mdj;
-    if (mdj == '0') {
         // estado inicial do tabuleiro. Inicio do jogo!
         e.grelha[3][4] = VALOR_X;
         e.grelha[4][3] = VALOR_X;
@@ -20,21 +21,29 @@ int main() {
         e.grelha[4][4] = VALOR_O;
 
         do {
-            gets(linha);
+            if (jogador%2 == 0) {
+                printf("Jogador X:\n=>");
+                e.peca = VALOR_X;
+            }
+            else {
+                printf("Jogador O:\n=>");
+                e.peca = VALOR_O;
+            }
+
+            fgets(linha,50,stdin);
+            // scanf("%s",linha);
             switch (toupper(linha[0])) {
-                case 'N' : {
-                    sscanf(linha, "%c %c", &c1, &c2);
-                    e.peca = c2;
+                case '?' : {
+                    printf("J x y // Jogar [linha] [coluna]\nT // Obter uma dica\n //");
                     break;
                 }
                 case 'J' : {
-                    sscanf(linha, "%c %c %d %d", &c1, &c2, &x, &y);
-                    if (toupper(c2) == 'X') e.peca = VALOR_X;
-                    else e.peca = VALOR_O;
+                    sscanf(linha, "%c %d %d", &c1, &x, &y);
                     if (verificajogada(&e,x-1,y-1)) {
                         joga(&e, x - 1, y - 1);
                         poepeca(&e, x - 1, y - 1);
                         printa(e);
+                        jogador ++;
                     }
                     else printf("introduza uma jogada válida\n");
                     break;
@@ -43,14 +52,12 @@ int main() {
                     printa(e);
                     break;
                 }
-
             }
 
-
         } while (toupper(linha[0] != 'Q'));
-    }
+
    // else if (mdj == '1');
-    else ;
+
 
 }
 

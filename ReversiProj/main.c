@@ -37,9 +37,9 @@ int main() {
             switch (toupper(linha[0])) {
                 case '?' :
                     {
-                        printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça");
-                        printf("L <ficheiro> // ler um jogo de ficheiro");
-                        printf("E <ficheiro> // Guardar jogo");
+                        printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");
+                        printf("L <ficheiro> // ler um jogo de ficheiro\n");
+                        printf("E <ficheiro> // Guardar jogo\n");
                         printf("J <L> <C> // Jogar [linha] [coluna]\n");
                         printf("S // Colocar pontos nos locais de jogada válida\n");
                         printf("P // Imprimir estado do jogo\n");

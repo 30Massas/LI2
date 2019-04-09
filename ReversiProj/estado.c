@@ -268,7 +268,9 @@ void guardajogo (ESTADO *e , char linha[]) {
 
 void whereCanIPut (ESTADO *e){
     int i,k;
+    printf("  1 2 3 4 5 6 7 8\n");
     for (i = 0;i<8;i++){
+        printf("%d ",i+1);
         for (k = 0; k<8;k++){
             if (e->grelha[i][k] == VALOR_X) printf("X ");
             else if (e->grelha[i][k] == VALOR_O) printf("O ");

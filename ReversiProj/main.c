@@ -8,18 +8,20 @@ int main() {
     int x, y;
     char mdj;
     int jogador = 0;
-    ESTADO e = {0};
-    e.modo = 0;
-    e.peca = VAZIA;
+    ESTADO *e = malloc(sizeof(struct estado));
+    e->modo = 0;
+    e->peca = VAZIA;
     // estado inicial do tabuleiro. Inicio do jogo!
-    e.grelha[3][4] = VALOR_X;
-    e.grelha[4][3] = VALOR_X;
-    e.grelha[3][3] = VALOR_O;
-    e.grelha[4][4] = VALOR_O;
+    e->grelha[3][4] = VALOR_X;
+    e->grelha[4][3] = VALOR_X;
+    e->grelha[3][3] = VALOR_O;
+    e->grelha[4][4] = VALOR_O;
+    e->ant = NULL;
+
 
         do {
-            if (e.peca == VAZIA) printf("Reversi ? => ");
-            else if (e.peca == VALOR_O) printf("Reversi O => ");
+            if (e->peca == VAZIA) printf("Reversi ? => ");
+            else if (e->peca == VALOR_O) printf("Reversi O => ");
             else printf("Reversi X => ");
          /*   if (jogador%2 == 0) {
                // printf("Jogador X:\n=>");
@@ -35,36 +37,43 @@ int main() {
             switch (toupper(linha[0])) {
                 case '?' :
                     {
-                        printf("N<peca> // novo jogo em que o primeiro a jogar é o jogador com peça");
+                        printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça");
                         printf("L <ficheiro> // ler um jogo de ficheiro");
                         printf("E <ficheiro> // Guardar jogo");
-                        printf("J x y // Jogar [linha] [coluna]\n");
-                        printf("P // Imprimir estado do jogo\n");
-                        printf("N // Criar novo jogo\n");
+                        printf("J <L> <C> // Jogar [linha] [coluna]\n");
                         printf("S // Colocar pontos nos locais de jogada válida\n");
+                        printf("P // Imprimir estado do jogo\n");
                         printf("H // Dar sugestão de jogada\n");
                         printf("U // Desfazer jogada anterior\n");
                         break;
                 }
                 case 'N' :
                     { // cria novo jogo
-                    novoEstado(&e,linha);
+                    novoEstado(e,linha);
                     break;
                 }
                 case 'E' :
                     {
-                    guardajogo(&e, linha);
+                    guardajogo(e, linha);
                     break;
                 }
                 case 'J' : {
-                    if (e.peca != VAZIA) {
+                    if (e->peca != VAZIA) {
                         sscanf(linha, "%c %d %d", &c1, &x, &y);
-                        if (verificajogada(&e, x - 1, y - 1)) {
-                            joga(&e, x - 1, y - 1);
-                            poepeca(&e, x - 1, y - 1);
-                            printa(e);
-                            if (e.peca == VALOR_O) e.peca = VALOR_X;
-                            else e.peca = VALOR_O;
+                        if (verificajogada(e, x - 1, y - 1)) {
+
+                            // fase teste
+                            ESTADO *aux = malloc(sizeof(struct estado));
+
+                            copyEstado (e,aux);
+                            aux->ant = e;
+                            e = aux;
+
+                            joga(e, x - 1, y - 1);
+                            poepeca(e, x - 1, y - 1);
+                            printa(*e);
+                            if (e->peca == VALOR_O) e->peca = VALOR_X;
+                            else e->peca = VALOR_O;
                         }
                         else printf("Jogada inválida. Introduza uma jgoada válida.\n");
                     }
@@ -72,16 +81,23 @@ int main() {
                 }
                 case 'P' :
                     {
-                    printa(e);
+                    printa(*e);
                     break;
                 }
                 case 'S' :
                     { // coloca pontos nos sítios de jogadas válidas
-                    whereCanIPut(&e);
+                    whereCanIPut(e);
+                    break;
                 }
-                case 'U' :
-                    { // desfaz a jogada anterior
-
+                case 'U' : { // desfaz a jogada anterior
+                    if (e->ant == NULL);
+                    else {
+                        ESTADO *aux;
+                        aux = e;
+                        e = e->ant;
+                        free(aux);
+                    }
+                    break;
                 }
                 case 'H' :
                     { // coloca pontos de interrogação em locais sugeridos para jogar
@@ -89,7 +105,7 @@ int main() {
                 }
                 case 'L' :
                     {
-                    readGame(&e,linha);
+                    readGame(e,linha);
                     break;
                 }
             }

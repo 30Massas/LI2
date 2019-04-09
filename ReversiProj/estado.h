@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ctype.h"
+#include "stdlib.h"
 
 #ifndef PROJ_ESTADO_H
 #define PROJ_ESTADO_H
@@ -28,6 +29,7 @@ typedef struct estado {
     VALOR peca; // peça do jogador que vai jogar!
     VALOR grelha[8][8];
     char modo; // modo em que se está a jogar! 0-> manual, 1-> contra computador
+    struct estado *ant;
 } ESTADO;
 
 
@@ -39,12 +41,7 @@ void guardajogo (ESTADO *e, char linha[]);
 void whereCanIPut (ESTADO *e);
 void novoEstado (ESTADO *e, char linha[]);
 void readGame (ESTADO *e, char linha[]);
-
-typedef struct slist *LInt;
-typedef struct slist {
-    int valor;
-    LInt ant;
-} Estado;
+void copyEstado (ESTADO *e, ESTADO *aux);
 
 
 #endif //PROJ_ESTADO_H

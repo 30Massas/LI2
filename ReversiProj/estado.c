@@ -282,6 +282,7 @@ void whereCanIPut (ESTADO *e){
 void novoEstado (ESTADO *e, char linha[]){
     int i,k;
     char c1,c2;
+    e->ant = NULL;
     for (i=0;i<8;i++){
         for (k=0;k<8;k++){
             e->grelha[i][k] = VAZIA;
@@ -298,4 +299,15 @@ void novoEstado (ESTADO *e, char linha[]){
     else e->peca = VALOR_O;
 }
 
+void copyEstado (ESTADO *e, ESTADO *aux){
+    aux->peca = e->peca;
+    aux->modo = e->modo;
+    int i,k;
+    for (i=0;i<8;i++){
+        for (k=0;k<8;k++){
+            aux->grelha[i][k] = e->grelha[i][k];
+        }
+    }
+    aux->ant = e->ant;
+}
 

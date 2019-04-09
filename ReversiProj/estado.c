@@ -201,5 +201,101 @@ int verificajogada (ESTADO *e, int x, int y) {
 
     return flag;
 }
+void readGame (ESTADO *e, char linha[]) {
+    FILE *file;
+    char modo;
+    char peca;
+    char ficheiro[50];
+    int i, k, j;
+    sscanf(linha, "%c %s", &modo, ficheiro);
+    file = fopen(strcat(ficheiro, ".txt"), "r");
+    if (file == NULL) printf("O ficheiro não existe");
+    else {
+        fscanf(file, "%c %c", &modo, &peca);
+        if (modo == 'M') e->modo = 0;
+        else e->modo = 1;
+        if (peca == 'X') e->peca = VALOR_X;
+        else e->peca = VALOR_O;
+        fseek(file, 1, SEEK_CUR);
+        for (i = 0; i < 8; i++) {
+            fgets(linha, 50, file);
+            j = 0;
+            for (k = 0; linha[k] != '\n' && j < 8; k++) {
+                if (linha[k] == 'X') {
+                    e->grelha[i][j] = VALOR_X;
+                    j++;
+                } else if (linha[k] == 'O') {
+                    e->grelha[i][j] = VALOR_O;
+                    j++;
+                } else if (linha[k] == '-' || linha[k] == '.') {
+                    e->grelha[i][j] = VAZIA;
+                    j++;
+                }
+            }
+
+        }
+        fclose(file);
+
+    }
+}
+
+void guardajogo (ESTADO *e , char linha[]) {
+    FILE *file;
+    char modo;
+    char peca;
+    char ficheiro[50];
+    int i,k;
+    sscanf(linha,"%c %s",&modo, ficheiro);
+    file = fopen(strcat(ficheiro, ".txt"), "w");
+
+    if (e->modo == 0) modo = 'M';
+    else modo = 'A';
+    if (e->peca == VALOR_X) peca = 'X';
+    else peca = 'O';
+
+    fprintf(file,"%c %c\n",modo,peca);
+    for (i = 0;i<8;i++){
+        for (k = 0; k<8;k++){
+            if (e->grelha[i][k] == VALOR_X) fprintf(file,"X ");
+            else if (e->grelha[i][k] == VALOR_O) fprintf(file,"O ");
+            else if (verificajogada(e,i,k)) fprintf(file,". ");
+            else fprintf(file,"- ");
+        }
+        fprintf(file,"\n");
+    }
+    fclose(file);
+}
+
+void whereCanIPut (ESTADO *e){
+    int i,k;
+    for (i = 0;i<8;i++){
+        for (k = 0; k<8;k++){
+            if (e->grelha[i][k] == VALOR_X) printf("X ");
+            else if (e->grelha[i][k] == VALOR_O) printf("O ");
+            else if (verificajogada(e,i,k)) printf(". ");
+            else printf("- ");
+        }
+        putchar('\n');
+    }
+}
+
+void novoEstado (ESTADO *e, char linha[]){
+    int i,k;
+    char c1,c2;
+    for (i=0;i<8;i++){
+        for (k=0;k<8;k++){
+            e->grelha[i][k] = VAZIA;
+        }
+    }
+    e->modo = 0;
+    // estado inicial do tabuleiro. Inicio do jogo!
+    e->grelha[3][4] = VALOR_X;
+    e->grelha[4][3] = VALOR_X;
+    e->grelha[3][3] = VALOR_O;
+    e->grelha[4][4] = VALOR_O;
+    sscanf(linha,"%c %c",&c1,&c2);
+    if (toupper(c2) == 'X') e->peca = VALOR_X;
+    else e->peca = VALOR_O;
+}
 
 

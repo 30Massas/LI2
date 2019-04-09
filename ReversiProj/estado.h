@@ -3,6 +3,9 @@
 //
 
 
+#include <stdio.h>
+#include <string.h>
+#include "ctype.h"
 
 #ifndef PROJ_ESTADO_H
 #define PROJ_ESTADO_H
@@ -32,7 +35,16 @@ void printa(ESTADO);
 int verificajogada (ESTADO *e, int x, int y);
 void joga (ESTADO *e, int x, int y);
 void poepeca (ESTADO *e,int x, int y);
+void guardajogo (ESTADO *e, char linha[]);
+void whereCanIPut (ESTADO *e);
+void novoEstado (ESTADO *e, char linha[]);
+void readGame (ESTADO *e, char linha[]);
 
+typedef struct slist *LInt;
+typedef struct slist {
+    int valor;
+    LInt ant;
+} Estado;
 
 
 #endif //PROJ_ESTADO_H

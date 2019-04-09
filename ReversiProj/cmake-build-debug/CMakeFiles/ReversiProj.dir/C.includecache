@@ -6,21 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/massas/CLionProjects/ReversiProj/estado.c
+/home/joao/LI2/ReversiProj/estado.h
 stdio.h
 -
-estado.h
-/home/massas/CLionProjects/ReversiProj/estado.h
-
-/home/massas/CLionProjects/ReversiProj/estado.h
-
-/home/massas/CLionProjects/ReversiProj/main.c
-stdio.h
--
-estado.h
-/home/massas/CLionProjects/ReversiProj/estado.h
 string.h
 -
 ctype.h
-/home/massas/CLionProjects/ReversiProj/ctype.h
+/home/joao/LI2/ReversiProj/ctype.h
+
+/home/joao/LI2/ReversiProj/main.c
+stdio.h
+-
+estado.h
+/home/joao/LI2/ReversiProj/estado.h
+string.h
+-
+ctype.h
+/home/joao/LI2/ReversiProj/ctype.h
 

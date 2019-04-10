@@ -446,3 +446,54 @@ int killCount (ESTADO *e,int x,int y){
     return contagem;
 
 }
+
+int gameOver (ESTADO *e, int *contaX, int *contaO) {
+    int resultado = 0;
+    if (*contaX + *contaO == 64) {
+        if (*contaX > *contaO) {
+            printf("Vencedor ! : X\n");
+            resultado = 1;
+        } else if (*contaX < *contaO) {
+            printf("Vencedor ! : O\n");
+            resultado = 1;
+        } else {
+            printf("Empate!\n");
+            resultado = 1;
+        }
+    } else {
+        if (!checkIfPlayable(e)) {
+            resultado = 1;
+            if (*contaX > *contaO) printf("Vencedor ! : X\n");
+            else if (*contaX < *contaO) printf("Vencedor ! : O\n");
+            else printf("Empate!\n");
+        }
+
+    }
+    return resultado;
+}
+int checkIfPlayable (ESTADO *e){
+    int i,k,flag1 = 0,flag2 = 0;
+    int resultado = 0;
+    flag1 = playerPlayable(e);
+    trocapeca(e);
+    flag2 = playerPlayable(e);
+    trocapeca(e);
+    if (flag1 == 0 && flag2 == 0) resultado = 0;
+    else resultado = 1;
+    return resultado;
+}
+
+int playerPlayable (ESTADO *e){
+    int i,k;
+    int flag1 = 0;
+    for (i=0;i<8 && flag1 == 0;i++){
+        for (k=0;k<8 && flag1 == 0;k++){
+            if (verificajogada(e,i,k)) flag1 = 1;
+        }
+    }
+    return flag1;
+}
+void trocapeca (ESTADO *e){
+    if (e->peca == VALOR_X) e->peca = VALOR_O;
+    else e->peca = VALOR_X;
+}

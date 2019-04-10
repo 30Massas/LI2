@@ -44,5 +44,9 @@ void readGame (ESTADO *e, char linha[]);
 void copyEstado (ESTADO *e, ESTADO *aux);
 void giveHint (ESTADO *e);
 int killCount (ESTADO *e,int x,int y);
+int gameOver (ESTADO *e,int *contaX, int *contaO);
+int checkIfPlayable (ESTADO *e);
+int playerPlayable (ESTADO *e);
+void trocapeca (ESTADO *e);
 
 #endif //PROJ_ESTADO_H

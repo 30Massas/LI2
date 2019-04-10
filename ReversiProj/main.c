@@ -7,7 +7,8 @@ int main() {
     char linha[50];
     int x, y;
     int jogador = 0;
-    int contaX,contaO;
+    int contaX=2,contaO=2;
+    int resultado = 0;
     ESTADO *e = malloc(sizeof(struct estado));
     e->modo = 0;
     e->peca = VAZIA;
@@ -42,6 +43,7 @@ int main() {
                 case 'N' :
                     { // cria novo jogo
                     novoEstado(e,linha);
+                    resultado = 0;
                     break;
                 }
                 case 'E' :
@@ -50,28 +52,30 @@ int main() {
                     break;
                 }
                 case 'J' : {
-                    if (e->peca != VAZIA) {
-                        sscanf(linha, "%c %d %d", &c1, &x, &y);
-                        if (verificajogada(e, x - 1, y - 1)) {
+                    if (resultado == 0) {
+                        if (e->peca != VAZIA) {
+                            sscanf(linha, "%c %d %d", &c1, &x, &y);
+                            if (verificajogada(e, x - 1, y - 1)) {
 
-                            // fase teste
-                            ESTADO *aux = malloc(sizeof(struct estado));
+                                // fase teste
+                                ESTADO *aux = malloc(sizeof(struct estado));
 
-                            copyEstado (e,aux);
-                            aux->ant = e;
-                            e = aux;
+                                copyEstado(e, aux);
+                                aux->ant = e;
+                                e = aux;
 
-                            joga(e, x - 1, y - 1);
-                            poepeca(e, x - 1, y - 1);
-                            printa(*e,&contaX,&contaO);
-                            printf("\n#X = %d   #O = %d\n",contaX,contaO);
-                            if (e->peca == VALOR_O) e->peca = VALOR_X;
-                            else e->peca = VALOR_O;
+                                joga(e, x - 1, y - 1);
+                                poepeca(e, x - 1, y - 1);
+                                printa(*e, &contaX, &contaO);
+                                printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                                trocapeca(e);
+                            } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
                         }
-                        else printf("Jogada inválida. Introduza uma jgoada válida.\n");
+                        resultado = gameOver(e, &contaX, &contaO);
                     }
                     break;
                 }
+
                 case 'P' :
                     {
                     printa(*e,&contaX,&contaO);
@@ -93,9 +97,8 @@ int main() {
                     }
                     break;
                 }
-                case 'H' :
-                    { // coloca pontos de interrogação em locais sugeridos para jogar
-                    giveHint(e);
+                case 'H' : { // coloca pontos de interrogação em locais sugeridos para jogar
+                    if (playerPlayable(e)) giveHint(e);
                     break;
                 }
                 case 'L' :

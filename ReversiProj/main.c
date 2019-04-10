@@ -6,8 +6,8 @@ int main() {
     char c1, c2;
     char linha[50];
     int x, y;
-    char mdj;
     int jogador = 0;
+    int contaX,contaO;
     ESTADO *e = malloc(sizeof(struct estado));
     e->modo = 0;
     e->peca = VAZIA;
@@ -23,14 +23,6 @@ int main() {
             if (e->peca == VAZIA) printf("Reversi ? => ");
             else if (e->peca == VALOR_O) printf("Reversi O => ");
             else printf("Reversi X => ");
-         /*   if (jogador%2 == 0) {
-               // printf("Jogador X:\n=>");
-                e.peca = VALOR_X;
-            }
-            else {
-               // printf("Jogador O:\n=>");
-                e.peca = VALOR_O;
-            }*/
 
             fgets(linha, 50, stdin);
             // scanf("%s",linha);
@@ -71,7 +63,8 @@ int main() {
 
                             joga(e, x - 1, y - 1);
                             poepeca(e, x - 1, y - 1);
-                            printa(*e);
+                            printa(*e,&contaX,&contaO);
+                            printf("\n#X = %d   #O = %d\n",contaX,contaO);
                             if (e->peca == VALOR_O) e->peca = VALOR_X;
                             else e->peca = VALOR_O;
                         }
@@ -81,7 +74,8 @@ int main() {
                 }
                 case 'P' :
                     {
-                    printa(*e);
+                    printa(*e,&contaX,&contaO);
+                    printf("\n#X = %d   #O = %d\n",contaX,contaO);
                     break;
                 }
                 case 'S' :
@@ -101,7 +95,8 @@ int main() {
                 }
                 case 'H' :
                     { // coloca pontos de interrogação em locais sugeridos para jogar
-
+                    giveHint(e);
+                    break;
                 }
                 case 'L' :
                     {
@@ -111,34 +106,3 @@ int main() {
             }
         } while (toupper(linha[0] != 'Q'));
     }
-  //  else
-       // { // Modo VS Bot
-       // do{
-
-        //} while (toupper((linha[0] != 'Q')))
-
-
-//}
-
-   // else if (mdj == '1');
-
-
-
-/*{
-    char mdj;
-    ESTADO e = {0};
-    printf("Insira o modo de jogo \n0-> manual, 1-> contra computador\n");
-    scanf("%c",&mdj);
-    e.modo = mdj;
-    e.peca = VALOR_X;
-
-    // estado inicial do tabuleiro. Inicio do jogo!
-    e.grelha[3][4] = VALOR_X;
-    e.grelha[4][3] = VALOR_X;
-    e.grelha[3][3] = VALOR_O;
-    e.grelha[4][4] = VALOR_O;
-
-
-    return 0;
-}
- */

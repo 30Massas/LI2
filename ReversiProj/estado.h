@@ -33,7 +33,7 @@ typedef struct estado {
 } ESTADO;
 
 
-void printa(ESTADO);
+void printa(ESTADO e, int *contaX,int *contaO);
 int verificajogada (ESTADO *e, int x, int y);
 void joga (ESTADO *e, int x, int y);
 void poepeca (ESTADO *e,int x, int y);
@@ -42,6 +42,7 @@ void whereCanIPut (ESTADO *e);
 void novoEstado (ESTADO *e, char linha[]);
 void readGame (ESTADO *e, char linha[]);
 void copyEstado (ESTADO *e, ESTADO *aux);
-
+void giveHint (ESTADO *e);
+int killCount (ESTADO *e,int x,int y);
 
 #endif //PROJ_ESTADO_H

@@ -48,5 +48,7 @@ int gameOver (ESTADO *e,int *contaX, int *contaO);
 int checkIfPlayable (ESTADO *e);
 int playerPlayable (ESTADO *e);
 void trocapeca (ESTADO *e);
+void interface();
+
 
 #endif //PROJ_ESTADO_H

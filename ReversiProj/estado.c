@@ -472,7 +472,7 @@ int gameOver (ESTADO *e, int *contaX, int *contaO) {
     return resultado;
 }
 int checkIfPlayable (ESTADO *e){
-    int i,k,flag1 = 0,flag2 = 0;
+    int flag1 = 0,flag2 = 0;
     int resultado = 0;
     flag1 = playerPlayable(e);
     trocapeca(e);
@@ -496,4 +496,14 @@ int playerPlayable (ESTADO *e){
 void trocapeca (ESTADO *e){
     if (e->peca == VALOR_X) e->peca = VALOR_O;
     else e->peca = VALOR_X;
+}
+void interface (){
+    printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");
+    printf("L <ficheiro> // ler um jogo de ficheiro\n");
+    printf("E <ficheiro> // Guardar jogo\n");
+    printf("J <L> <C> // Jogar [linha] [coluna]\n");
+    printf("S // Colocar pontos nos locais de jogada válida\n");
+    printf("P // Imprimir estado do jogo\n");
+    printf("H // Dar sugestão de jogada\n");
+    printf("U // Desfazer jogada anterior\n");
 }

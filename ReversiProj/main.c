@@ -3,22 +3,13 @@
 #include <string.h>
 #include "ctype.h"
 int main() {
-    char c1, c2;
+    char c1;
     char linha[50];
     int x, y;
-    int jogador = 0;
     int contaX=2,contaO=2;
     int resultado = 0;
+    int state = 0;
     ESTADO *e = malloc(sizeof(struct estado));
-    e->modo = 0;
-    e->peca = VAZIA;
-    // estado inicial do tabuleiro. Inicio do jogo!
-    e->grelha[3][4] = VALOR_X;
-    e->grelha[4][3] = VALOR_X;
-    e->grelha[3][3] = VALOR_O;
-    e->grelha[4][4] = VALOR_O;
-    e->ant = NULL;
-
 
         do {
             if (e->peca == VAZIA) printf("Reversi ? => ");
@@ -26,79 +17,84 @@ int main() {
             else printf("Reversi X => ");
 
             fgets(linha, 50, stdin);
-            // scanf("%s",linha);
             switch (toupper(linha[0])) {
                 case '?' :
                     {
-                        printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");
-                        printf("L <ficheiro> // ler um jogo de ficheiro\n");
-                        printf("E <ficheiro> // Guardar jogo\n");
-                        printf("J <L> <C> // Jogar [linha] [coluna]\n");
-                        printf("S // Colocar pontos nos locais de jogada válida\n");
-                        printf("P // Imprimir estado do jogo\n");
-                        printf("H // Dar sugestão de jogada\n");
-                        printf("U // Desfazer jogada anterior\n");
+                        interface ();
                         break;
                 }
                 case 'N' :
                     { // cria novo jogo
                     novoEstado(e,linha);
+                    state = 1;
                     resultado = 0;
                     break;
                 }
-                case 'E' :
-                    {
-                    guardajogo(e, linha);
+                case 'E' : {
+                    if (state == 1) guardajogo(e, linha);
                     break;
                 }
                 case 'J' : {
-                    if (resultado == 0) {
+                    if (state == 1 && resultado == 0) {
                         if (e->peca != VAZIA) {
                             sscanf(linha, "%c %d %d", &c1, &x, &y);
                             if (verificajogada(e, x - 1, y - 1)) {
 
-                                // fase teste
+                                //avançar o estado
                                 ESTADO *aux = malloc(sizeof(struct estado));
 
                                 copyEstado(e, aux);
                                 aux->ant = e;
                                 e = aux;
-
+                                // -----------
                                 joga(e, x - 1, y - 1);
                                 poepeca(e, x - 1, y - 1);
                                 printa(*e, &contaX, &contaO);
                                 printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                 trocapeca(e);
+
+                                if (!playerPlayable(e)) {
+                                    if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
+                                    else printf("Jogador O sem jogadas válidas!\n");
+                                    trocapeca(e);
+                                }
                             } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
-                        }
                         resultado = gameOver(e, &contaX, &contaO);
+                        }
+                        else printf("Jogo ainda não criado // N <peça>\n");
                     }
                     break;
                 }
 
-                case 'P' :
-                    {
-                    printa(*e,&contaX,&contaO);
-                    printf("\n#X = %d   #O = %d\n",contaX,contaO);
+                case 'P' : {
+                    if (state == 1) {
+                        printa(*e, &contaX, &contaO);
+                        printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                    } else printf("Jogo ainda não criado // N <peça>\n");
                     break;
                 }
-                case 'S' :
-                    { // coloca pontos nos sítios de jogadas válidas
-                    whereCanIPut(e);
+                case 'S' : { // coloca pontos nos sítios de jogadas válidas
+                    if (state == 1) whereCanIPut(e);
+                    else printf("Jogo ainda não criado // N <peça>\n");
                     break;
                 }
                 case 'U' : { // desfaz a jogada anterior
-                    if (e->ant == NULL);
-                    else {
-                        ESTADO *aux;
-                        aux = e;
-                        e = e->ant;
-                        free(aux);
+                    if (state == 1) {
+                        if (e->ant == NULL);
+                        else {
+                            ESTADO *aux;
+                            aux = e;
+                            e = e->ant;
+                            free(aux);
+                        }
                     }
+                    else printf("Jogo ainda não criado // N <peça>\n");
                     break;
                 }
                 case 'H' : { // coloca pontos de interrogação em locais sugeridos para jogar
-                    if (playerPlayable(e)) giveHint(e);
+                    if (state != 1) printf("Jogo ainda não criado // N <peça>\n");
+                    else if (playerPlayable(e)) giveHint(e);
+                    else printf("Jogador sem jogadas válidas");
                     break;
                 }
                 case 'L' :

@@ -59,7 +59,20 @@ int main() {
                                     trocapeca(e);
                                 }
                             } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
-                        resultado = gameOver(e, &contaX, &contaO);
+
+
+                            // BOT
+                            if (e->modo == 1) {
+                                // as funções do bot vão aqui
+                                trocapeca(e);
+                            }
+                            // -----------
+
+
+
+
+                            resultado = gameOver(e, &contaX, &contaO);
+
                         }
                         else printf("Jogo ainda não criado // N <peça>\n");
                     }

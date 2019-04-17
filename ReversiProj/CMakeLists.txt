@@ -3,4 +3,4 @@ project(proj C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ReversiProj main.c estado.h estado.c)
+add_executable(ReversiProj main.c estado.h estado.c botfunction.c botfunction.h)

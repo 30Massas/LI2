@@ -78,6 +78,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/joao/LI2/ReversiProj/botfunction.c">
+			<Option target="ReversiProj"/>
+		</Unit>
+		<Unit filename="/home/joao/LI2/ReversiProj/botfunction.h">
+			<Option target="ReversiProj"/>
+		</Unit>
 		<Unit filename="/home/joao/LI2/ReversiProj/estado.c">
 			<Option target="ReversiProj"/>
 		</Unit>

@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ReversiProj.dir/main.c.o"
   "CMakeFiles/ReversiProj.dir/estado.c.o"
+  "CMakeFiles/ReversiProj.dir/botfunction.c.o"
   "ReversiProj.pdb"
   "ReversiProj"
 )

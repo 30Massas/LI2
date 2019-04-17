@@ -493,10 +493,12 @@ int playerPlayable (ESTADO *e){
     }
     return flag1;
 }
+
 void trocapeca (ESTADO *e){
     if (e->peca == VALOR_X) e->peca = VALOR_O;
     else e->peca = VALOR_X;
 }
+
 void interface (){
     printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");
     printf("L <ficheiro> // ler um jogo de ficheiro\n");
@@ -507,3 +509,6 @@ void interface (){
     printf("H // Dar sugestão de jogada\n");
     printf("U // Desfazer jogada anterior\n");
 }
+
+
+

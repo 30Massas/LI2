@@ -123,6 +123,33 @@ ReversiProj/fast:
 	$(MAKE) -f CMakeFiles/ReversiProj.dir/build.make CMakeFiles/ReversiProj.dir/build
 .PHONY : ReversiProj/fast
 
+botfunction.o: botfunction.c.o
+
+.PHONY : botfunction.o
+
+# target to build an object file
+botfunction.c.o:
+	$(MAKE) -f CMakeFiles/ReversiProj.dir/build.make CMakeFiles/ReversiProj.dir/botfunction.c.o
+.PHONY : botfunction.c.o
+
+botfunction.i: botfunction.c.i
+
+.PHONY : botfunction.i
+
+# target to preprocess a source file
+botfunction.c.i:
+	$(MAKE) -f CMakeFiles/ReversiProj.dir/build.make CMakeFiles/ReversiProj.dir/botfunction.c.i
+.PHONY : botfunction.c.i
+
+botfunction.s: botfunction.c.s
+
+.PHONY : botfunction.s
+
+# target to generate assembly for a file
+botfunction.c.s:
+	$(MAKE) -f CMakeFiles/ReversiProj.dir/build.make CMakeFiles/ReversiProj.dir/botfunction.c.s
+.PHONY : botfunction.c.s
+
 estado.o: estado.c.o
 
 .PHONY : estado.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... ReversiProj"
 	@echo "... edit_cache"
+	@echo "... botfunction.o"
+	@echo "... botfunction.i"
+	@echo "... botfunction.s"
 	@echo "... estado.o"
 	@echo "... estado.i"
 	@echo "... estado.s"

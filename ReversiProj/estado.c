@@ -47,77 +47,110 @@ void joga (ESTADO *e, int x, int y){
     else p = VALOR_X;
 
     // modificar para a direita--------------------------
-    while (e->grelha[l][c+1] == p && c < 8) c++;
-    if (c==8 && e->grelha[l][c] == p);
-    else if (e->grelha[l][c+1] == e->peca) for(;c!=y;c--) e->grelha[l][c] = e->peca;
+    c++;
+    while (e->grelha[l][c] == p && c < 8) c++;
+    if (c==8); //&& e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca){
+        for(;c!=y;c--) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
+
     else;
     //----------------------------------------------------
     c=y,l=x;
 
     // modificar para a esquerda-------------------------
-    while (e->grelha[l][c-1] == p && c > 0) c--;
-    if (c==0 && e->grelha[l][c] == p);
-    else if (e->grelha[l][c-1] == e->peca) for (;c!=y;c++) e->grelha[l][c] = e->peca;
+    c--;
+    while (e->grelha[l][c] == p && c >= 0) c--;
+    if (c==-1); // && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca){
+        for (;c!=y;c++) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar para baixo--------------------------------
-    while (e->grelha[l+1][c] == p && l < 8) l++;
-    if (l == 8 && e->grelha[l][c] == p);
-    else if (e->grelha[l+1][c] == e->peca) for (;l!=x;l--) e->grelha[l][c] = e->peca;
+    l++;
+    while (e->grelha[l][c] == p && l < 8) l++;
+    if (l == 8); // && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca){
+        for (;l!=x;l--) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar para cima
-    while (e->grelha[l-1][c] == p && l > 0) l--;
-    if (l == 0 && e->grelha[l][c] == p);
-    else if (e->grelha[l-1][c] == e->peca) for (;l!=x;l++) e->grelha[l][c] = e->peca;
+    l--;
+    while (e->grelha[l][c] == p && l >= 0) l--;
+    if (l == -1); // && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca) {
+        for (;l!=x;l++) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar cima direita
-    while (e->grelha[l-1][c+1] == p && c < 8 && l > 0) {
+    l--;c++;
+    while (e->grelha[l][c] == p && c < 8 && l >= 0) {
         l--;
         c++;
     }
-    if ((l == 0 || c == 8) && e->grelha[l][c] == p );
-    else if (e->grelha[l-1][c+1] == e->peca) for (;l!=x;l++,c--) e->grelha[l][c] = e->peca;
+    if ((l == -1 || c == 8)); // && e->grelha[l][c] == p );
+    else if (e->grelha[l][c] == e->peca) {
+        for (;l!=x;l++,c--) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar cima esquerda
-    while (e->grelha[l-1][c-1] == p && c > 0 && l > 0) {
+    l--;c--;
+    while (e->grelha[l][c] == p && c >= 0 && l >= 0) {
         l--;
         c--;
     }
-    if ((l == 0 || c == 0) && e->grelha[l][c] == p);
-    else if (e->grelha[l-1][c-1] == e->peca) for (;l!=x;l++,c++) e->grelha[l][c] = e->peca;
+    if ((l == -1 || c == -1)); // && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca) {
+        for (;l!=x;l++,c++) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar baixo esquerda
-    while (e->grelha[l+1][c-1] == p && c > 0 && l < 8) {
+    l++;c--;
+    while (e->grelha[l][c] == p && c >= 0 && l < 8) {
         l++;
         c--;
     }
-    if ((l == 8 || c == 0) && e->grelha[l][c] == p);
-    else if (e->grelha[l+1][c-1] == e->peca) for (;l!=x;c++,l--) e->grelha[l][c] = e->peca;
+    if ((l == 8 || c == -1)); // && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca) {
+        for (;l!=x;c++,l--) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
     c=y,l=x;
 
     // modificar baixo direita
-    while (e->grelha[l+1][c+1] == p && c < 8 && l < 8) {
+    l++;c++;
+    while (e->grelha[l][c] == p && c < 8 && l < 8) {
         l++;
         c++;
     }
-    if ((l == 7 || c == 7) && e->grelha[l][c] == p);
-    else if (e->grelha[l+1][c+1] == e->peca) for (;l!=x;l--,c--) e->grelha[l][c] = e->peca;
+    if ((l == 8 || c == 8) && e->grelha[l][c] == p);
+    else if (e->grelha[l][c] == e->peca) {
+        for (;l!=x;l--,c--) e->grelha[l][c] = e->peca;
+        poepeca(e,x,y);
+    }
     else;
     //-----------------------------------------------------
 }
@@ -133,69 +166,77 @@ int verificajogada (ESTADO *e, int x, int y) {
 
         //direita
         if (e->grelha[x][y + 1] == p) {
-            while (e->grelha[l][c + 1] == p && c < 8) c++;
-            if (e->grelha[l][c + 1] == e->peca && c < 8) flag = 1;
+            c++;
+            while (e->grelha[l][c] == p && c < 8) c++;
+            if (e->grelha[l][c] == e->peca && c < 8) flag = 1;
         }
         l = x, c = y;
 
         //esquerda
         if (e->grelha[x][y - 1] == p && flag == 0) {
-            while (e->grelha[l][c - 1] == p && c > 0) c--;
-            if (e->grelha[l][c - 1] == e->peca && c > 0) flag = 1;
+            c--;
+            while (e->grelha[l][c] == p && c >= 0) c--;
+            if (e->grelha[l][c] == e->peca && c >= 0) flag = 1;
         }
         l = x, c = y;
 
         //cima
         if (e->grelha[x - 1][y] == p && flag == 0) {
-            while (e->grelha[l - 1][c] == p && l > 0) l--;
-            if (e->grelha[l - 1][c] == e->peca && l > 0) flag = 1;
+            l--;
+            while (e->grelha[l][c] == p && l >= 0) l--;
+            if (e->grelha[l][c] == e->peca && l >= 0) flag = 1;
         }
         l = x, c = y;
 
         //baixo
         if (e->grelha[x + 1][y] == p && flag == 0) {
-            while (e->grelha[l + 1][c] == p && l < 8) l++;
-            if (e->grelha[l + 1][c] == e->peca && l < 8) flag = 1;
+            l++;
+            while (e->grelha[l][c] == p && l < 8) l++;
+            if (e->grelha[l][c] == e->peca && l < 8) flag = 1;
         }
         l = x, c = y;
 
         //cima direita
         if (e->grelha[x - 1][y + 1] == p && flag == 0) {
-            while (e->grelha[l - 1][c + 1] == p && l > 0 && c < 8) {
+            l--;c++;
+            while (e->grelha[l][c] == p && l >= 0 && c < 8) {
                 l--;
                 c++;
             }
-            if (e->grelha[l - 1][c + 1] == e->peca && l > 0 && c < 8) flag = 1;
+            if (e->grelha[l][c] == e->peca && l >= 0 && c < 8) flag = 1;
         }
         l = x, c = y;
 
         //baixo direita
         if (e->grelha[x + 1][y + 1] == p && flag == 0) {
-            while (e->grelha[l + 1][c + 1] == p && l < 8 && c < 8) {
+            l++;c++;
+            while (e->grelha[l][c] == p && l < 8 && c < 8) {
                 l++;
                 c++;
             }
-            if (e->grelha[l + 1][c + 1] == e->peca && l < 8 && c < 8) flag = 1;
+            if (e->grelha[l][c] == e->peca && l < 8 && c < 8) flag = 1;
         }
         l = x, c = y;
 
         //baixo esquerda
         if (e->grelha[x + 1][y - 1] == p && flag == 0) {
-            while (e->grelha[l + 1][c - 1] == p && l < 8 && c > 0) {
+            l++;c--;
+            while (e->grelha[l][c] == p && l < 8 && c >= 0) {
                 l++;
                 c--;
             }
-            if (e->grelha[l + 1][c - 1] == e->peca && l < 8 && c > 0) flag = 1;
+            if (e->grelha[l][c] == e->peca && l < 8 && c >= 0) flag = 1;
         }
         l = x, c = y;
 
         //cima esquerda
         if (e->grelha[x - 1][y - 1] == p && flag == 0) {
-            while (e->grelha[l - 1][c - 1] == p && l > 0 && c > 0) {
+            l--;c--;
+            while (e->grelha[l][c] == p && l >= 0 && c >= 0) {
                 l--;
                 c--;
             }
-            if (e->grelha[l - 1][c - 1] == e->peca && l > 0 && c > 0) flag = 1;
+            if (e->grelha[l][c] == e->peca && l >= 0 && c >= 0) flag = 1;
         }
     }
 

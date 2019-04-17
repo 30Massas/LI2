@@ -7,7 +7,7 @@ int contaPontos (ESTADO *e,int x, int y) {
     ESTADO *aux = malloc(sizeof(struct estado));
     copyEstado(e, aux);
     joga(aux, x, y);
-    poepeca(aux, x, y);
+//    poepeca(aux, x, y);
     // ----------------------------
 
 
@@ -73,7 +73,7 @@ int minbot (ESTADO *e, int *x, int *y){
                 ESTADO *aux = malloc(sizeof(struct estado));
                 copyEstado(e, aux);
                 joga(aux, i, k);
-                poepeca(aux, i, k);
+         //       poepeca(aux, i, k);
                 trocapeca(aux);
                 temp = maxbot(aux,x,y);
                 trocapeca(aux);
@@ -99,7 +99,7 @@ int maxplay (ESTADO *e, int *x, int *y) {
                 ESTADO *aux = malloc(sizeof(struct estado));
                 copyEstado(e, aux);
                 joga(aux, i, k);
-                poepeca(aux, i, k);
+           //     poepeca(aux, i, k);
                 trocapeca(aux);
                 temp = minbot(aux, x, y);
                 trocapeca(aux);

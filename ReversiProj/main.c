@@ -64,7 +64,7 @@ int main() {
                                     e = aux;
                                     // -----------
                                     joga(e, x - 1, y - 1);
-                                    poepeca(e, x - 1, y - 1);
+                             //       poepeca(e, x - 1, y - 1);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
@@ -75,7 +75,7 @@ int main() {
                                         trocapeca(e);
                                     }
                                 } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
-                                //resultado = gameOver(e, &contaX, &contaO);
+
                             }
                         }
 
@@ -110,7 +110,7 @@ int main() {
                                     e = aux;
                                     // -----------
                                     joga(e, x - 1, y - 1);
-                                    poepeca(e, x - 1, y - 1);
+                                 //   poepeca(e, x - 1, y - 1);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
@@ -118,7 +118,6 @@ int main() {
                                 }
                             }
                                 // -----------------
-
                                 // se o jogador não puder jogar
                             else if (!playerPlayable(e)) {
                                 if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
@@ -126,16 +125,14 @@ int main() {
                                 trocapeca(e);
                             }
 
-                            // se o bot tiver jogadas disponíveis
-                            if (playerPlayable(e)) {
+                            // se o bot tiver jogadas disponíveis e for a sua vez
+                            if (playerPlayable(e) && e->peca != piece) {
                                 do {
                                     // as funções do bot vão aqui
-                                    printf("%d\n",
-                                           maxplay(e, &line,
-                                                   &col)); // a line e a col ficam com as posições onde deve jogar
+                                    printf("%d\n", maxplay(e, &line, &col)); // a line e a col ficam com as posições onde deve jogar
 
                                     joga(e, line, col);
-                                    poepeca(e, line, col);
+                           //         poepeca(e, line, col);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
@@ -145,9 +142,11 @@ int main() {
                                         else printf("Jogador O sem jogadas válidas!\n");
                                         trocapeca(e);
                                     }
-                                } while (playerPlayable(e) && !oppPlayable(e));
+                                } while (e->peca != piece || (playerPlayable(e) && !oppPlayable(e)));
                             }
                         }
+
+
                             resultado = gameOver(e, &contaX, &contaO);
                     }
                     else printf("Jogo ainda não criado // N <peça>\n");

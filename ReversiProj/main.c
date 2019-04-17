@@ -176,6 +176,8 @@ int main() {
                 case 'L' :
                     {
                     readGame(e,linha);
+                    state = 1;
+                    resultado = gameOver(e, &contaX, &contaO);;
                     break;
                 }
             }

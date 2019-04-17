@@ -15,28 +15,26 @@ int contaPontos (ESTADO *e,int x, int y) {
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
             if (aux->grelha[i][k] == aux->peca) {
-                if ((x == 0 || x == 7) && (y == 0 || y == 7)) soma += 10000;
-                else if ((x == 1 && y == 1) || (x == 1 && y == 6) || (x == 6 && y == 1) || (x == 6 && y == 6))
-                    soma -= 5000;
-                else if ((x == 1 && y == 0) || (x == 0 && y == 1) || (x == 0 && y == 6) || (x == 1 && y == 7) ||
-                         (x == 6 && y == 0) || (x == 7 && y == 1) || (x == 6 && y == 7) || (x == 7 && y == 6))
-                    soma -= 3000;
-                else if ((x == 0 && y == 2) || (x == 0 && y == 5) || (x == 7 && y == 2) || (x == 7 && y == 5) ||
-                         (x == 2 && y == 0) || (x == 2 && y == 7) || (x == 5 && y == 0) || (x == 5 && y == 7))
+                if ((i == 0 || i == 7) && (k == 0 || k == 7)) soma += 10000;
+                else if ((i == 1 && k == 1) || (i == 1 && k == 6) || (i == 6 && k == 1) || (i == 6 && k == 6)) soma = soma - 5000;
+                else if ((i == 1 && k == 0) || (i == 0 && k == 1) || (i == 0 && k == 6) || (i == 1 && k == 7) || (i == 6 && k == 0) || (i == 7 && k == 1) || (i == 6 && k == 7) || (i == 7 && k == 6))
+                    soma = soma - 3000;
+                else if ((i == 0 && k == 2) || (i == 0 && k == 5) || (i == 7 && k == 2) || (i == 7 && k == 5) ||
+                         (i == 2 && k == 0) || (i == 2 && k == 7) || (i == 5 && k == 0) || (i == 5 && k == 7))
                     soma += 1000;
-                else if ((x == 0 && y == 3) || (x == 0 && y == 4) || (x == 7 && y == 3) || (x == 7 && y == 4) ||
-                         (x == 3 && y == 0) || (x == 3 && y == 7) || (x == 4 && y == 0) || (x == 4 && y == 7))
+                else if ((i == 0 && k == 3) || (i == 0 && k == 4) || (i == 7 && k == 3) || (i == 7 && k == 4) ||
+                         (i == 3 && k == 0) || (i == 3 && k == 7) || (i == 4 && k == 0) || (i == 4 && k == 7))
                     soma += 800;
-                else if ((x == 1 && y == 3) || (x == 1 && y == 4) || (x == 6 && y == 3) || (x == 6 && y == 4) ||
-                         (x == 3 && y == 1) || (x == 3 && y == 6) || (x == 4 && y == 1) || (x == 4 && y == 6))
-                    soma -= 500;
-                else if ((x == 1 && y == 2) || (x == 2 && y == 1) || (x == 1 && y == 5) || (x == 2 && y == 6) ||
-                         (x == 5 && y == 1) || (x == 6 && y == 2) || (x == 5 && y == 6) || (x == 6 && y == 5))
-                    soma -= 450;
-                else if ((x == 2 && y == 2) || (x == 2 && y == 5) || (x == 5 && y == 2) || (x == 5 && y == 5))
+                else if ((i == 1 && k == 3) || (i == 1 && k == 4) || (i == 6 && k == 3) || (i == 6 && k == 4) ||
+                         (i == 3 && k == 1) || (i == 3 && k == 6) || (i == 4 && k == 1) || (i == 4 && k == 6))
+                    soma = soma - 500;
+                else if ((i == 1 && k == 2) || (i == 2 && k == 1) || (i == 1 && k == 5) || (i == 2 && k == 6) ||
+                         (i == 5 && k == 1) || (i == 6 && k == 2) || (i == 5 && k == 6) || (i == 6 && k == 5))
+                    soma = soma -450;
+                else if ((i == 2 && k == 2) || (i == 2 && k == 5) || (i == 5 && k == 2) || (i == 5 && k == 5))
                     soma += 30;
-                else if ((x == 2 && y == 3) || (x == 2 && y == 4) || (x == 5 && y == 3) || (x == 5 && y == 4) ||
-                         (x == 3 && y == 2) || (x == 3 && y == 5) || (x == 4 && y == 2) || (x == 4 && y == 5))
+                else if ((i == 2 && k == 3) || (i == 2 && k == 4) || (i == 5 && k == 3) || (i == 5 && k == 4) ||
+                         (i == 3 && k == 2) || (i == 3 && k == 5) || (i == 4 && k == 2) || (i == 4 && k == 5))
                     soma += 10;
                 else soma += 50;
             }
@@ -56,10 +54,9 @@ int maxbot (ESTADO *e, int *x, int *y) {
                 temp = contaPontos(e, i, k);
                 if (temp >= max) {
                     max = temp;
-                    *x = i;
-                    *y = k;
+                    //   *x = i;
+                    //   *y = k;
                 }
-
             }
         }
     }
@@ -72,11 +69,18 @@ int minbot (ESTADO *e, int *x, int *y){
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
             if (verificajogada(e, i, k)){
-                temp = maxbot(e,x,y);
+
+                ESTADO *aux = malloc(sizeof(struct estado));
+                copyEstado(e, aux);
+                joga(aux, i, k);
+                poepeca(aux, i, k);
+                trocapeca(aux);
+                temp = maxbot(aux,x,y);
+                trocapeca(aux);
                 if (temp <= min){
                     min = temp;
-                    *x = i;
-                    *y = k;
+                    //  *x = i;
+                    //  *y = k;
                 }
             }
         }
@@ -90,7 +94,15 @@ int maxplay (ESTADO *e, int *x, int *y) {
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
             if (verificajogada(e, i, k)) {
-                temp = minbot(e, x, y);
+
+
+                ESTADO *aux = malloc(sizeof(struct estado));
+                copyEstado(e, aux);
+                joga(aux, i, k);
+                poepeca(aux, i, k);
+                trocapeca(aux);
+                temp = minbot(aux, x, y);
+                trocapeca(aux);
                 if (temp >= max) {
                     max = temp;
                     *x = i;

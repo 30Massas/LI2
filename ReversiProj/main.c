@@ -92,10 +92,14 @@ int main() {
 
                             //modo automático
                         else if (e->modo == 1) {
-                            if (piece == e->peca) {
+
+
+                            // se for a vez do player e puder jogar
+                            if (piece == e->peca && playerPlayable(e)) {
                                 sscanf(linha, "%c %d %d", &c1, &x, &y);
                                 if (!verificajogada(e, x - 1, y - 1)) {
                                     printf("Jogada não válida\n");
+                                    break;
                                 } else {
 
                                     //avançar o estado
@@ -111,28 +115,37 @@ int main() {
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
 
+                                }
+                            }
+                                // -----------------
+
+                                // se o jogador não puder jogar
+                            else if (!playerPlayable(e)) {
+                                if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
+                                else printf("Jogador O sem jogadas válidas!\n");
+                                trocapeca(e);
+                            }
+
+                            // se o bot tiver jogadas disponíveis
+                            if (playerPlayable(e)) {
+                                do {
+                                    // as funções do bot vão aqui
+                                    printf("%d\n",
+                                           maxplay(e, &line,
+                                                   &col)); // a line e a col ficam com as posições onde deve jogar
+
+                                    joga(e, line, col);
+                                    poepeca(e, line, col);
+                                    printa(*e, &contaX, &contaO);
+                                    printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                                    trocapeca(e);
+
                                     if (!playerPlayable(e)) {
                                         if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
                                         else printf("Jogador O sem jogadas válidas!\n");
                                         trocapeca(e);
-                                    } else {
-                                        // as funções do bot vão aqui
-                                        printf("%d\n", maxplay(e, &line,
-                                                               &col)); // a line e a col ficam com as posições onde deve jogar
-
-                                        joga(e, line, col);
-                                        poepeca(e, line, col);
-                                        printa(*e, &contaX, &contaO);
-                                        printf("\n#X = %d   #O = %d\n", contaX, contaO);
-                                        trocapeca(e);
-
-                                        if (!playerPlayable(e)) {
-                                            if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
-                                            else printf("Jogador O sem jogadas válidas!\n");
-                                            trocapeca(e);
-                                        }
                                     }
-                                }
+                                } while (playerPlayable(e) && !oppPlayable(e));
                             }
                         }
                             resultado = gameOver(e, &contaX, &contaO);
@@ -161,6 +174,7 @@ int main() {
                             aux = e;
                             e = e->ant;
                             free(aux);
+                            resultado = 0;
                         }
                     }
                     else printf("Jogo ainda não criado // N <peça>\n");
@@ -176,6 +190,7 @@ int main() {
                 case 'L' :
                     {
                     readGame(e,linha);
+                    piece = e->peca;
                     state = 1;
                     resultado = gameOver(e, &contaX, &contaO);;
                     break;

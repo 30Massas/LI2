@@ -49,6 +49,7 @@ int checkIfPlayable (ESTADO *e);
 int playerPlayable (ESTADO *e);
 void trocapeca (ESTADO *e);
 void interface();
+int oppPlayable (ESTADO *e);
 
 
 #endif //PROJ_ESTADO_H

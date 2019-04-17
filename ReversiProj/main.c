@@ -142,7 +142,7 @@ int main() {
                                         else printf("Jogador O sem jogadas válidas!\n");
                                         trocapeca(e);
                                     }
-                                } while (e->peca != piece || (playerPlayable(e) && !oppPlayable(e)));
+                                } while (e->peca != piece && playerPlayable(e) && !oppPlayable(e));
                             }
                         }
 

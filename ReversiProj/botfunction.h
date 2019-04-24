@@ -6,7 +6,7 @@
 int contaPontos (ESTADO *e,int x, int y);
 int maxbot (ESTADO *e,int *x, int *y);
 int minbot (ESTADO *e, int *x, int *y);
-int maxplay (ESTADO *e, int *x, int *y);
+int maxplay (ESTADO *e, int *x, int *y, int nivel, int orig);
 
 
 #endif //PROJ_BOTFUNCTION_H

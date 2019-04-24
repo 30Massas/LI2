@@ -4,13 +4,14 @@
 #include "ctype.h"
 #include "botfunction.h"
 int main() {
-    char c1;
+    char c1,c2;
     char linha[50];
     int x, y;
     int contaX=2,contaO=2;
     int resultado = 0;
     int state = 0;
     int line,col;
+    int nivel = 0;
     VALOR piece = VAZIA; // auxiliar p/ bot
     ESTADO *e = malloc(sizeof(struct estado));
 
@@ -34,12 +35,17 @@ int main() {
                     break;
                 }
                 case 'A' : {
-                    novoEstado(e,linha);
-                    piece = e->peca;
+                    sscanf(linha,"%c %c %d",&c1,&c2,&nivel);
+                    if (nivel < 1);
+                    else {
+                        novoEstado(e, linha);
+                        piece = e->peca;
 
-                    state = 1;
-                    resultado = 0;
-                    e->modo = 1;
+                        state = 1;
+                        resultado = 0;
+                        e->modo = 1;
+                        e->nivel = nivel;
+                    }
                     break;
                 }
                 case 'E' : {
@@ -64,7 +70,6 @@ int main() {
                                     e = aux;
                                     // -----------
                                     joga(e, x - 1, y - 1);
-                             //       poepeca(e, x - 1, y - 1);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
@@ -110,7 +115,6 @@ int main() {
                                     e = aux;
                                     // -----------
                                     joga(e, x - 1, y - 1);
-                                 //   poepeca(e, x - 1, y - 1);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);
@@ -129,10 +133,9 @@ int main() {
                             if (playerPlayable(e) && e->peca != piece) {
                                 do {
                                     // as funções do bot vão aqui
-                                    printf("%d\n", maxplay(e, &line, &col)); // a line e a col ficam com as posições onde deve jogar
+                                    printf("%d\n", maxplay(e, &line, &col,2*nivel+1,2*nivel+1)); // a line e a col ficam com as posições onde deve jogar
 
                                     joga(e, line, col);
-                           //         poepeca(e, line, col);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     trocapeca(e);

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "estado.h"
-
+#include "botfunction.h"
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
 void printa(ESTADO e, int *contaX,int *contaO)
@@ -340,6 +340,7 @@ void novoEstado (ESTADO *e, char linha[]){
     sscanf(linha,"%c %c",&c1,&c2);
     if (toupper(c2) == 'X') e->peca = VALOR_X;
     else e->peca = VALOR_O;
+    e->nivel = 0;
 }
 
 void copyEstado (ESTADO *e, ESTADO *aux){
@@ -354,33 +355,21 @@ void copyEstado (ESTADO *e, ESTADO *aux){
     aux->ant = e->ant;
 }
 
-void giveHint (ESTADO *e){
-    int max = 0;
-    int temp;
-    int i,k;
-    int l,col;
-    for (i=0;i<8;i++){
-        for (k=0;k<8;k++){
-            if (verificajogada(e,i,k)){
-                temp = killCount(e,i,k);
-                if (temp > max) {
-                    max = temp;
-                    l = i;col=k;
-                }
-            }
-        }
-    }
+void giveHint (ESTADO *e) {
+    int x,y;
+    maxplay(e,&x,&y,2,2);
     char c = ' ';
+
     printf("  1 2 3 4 5 6 7 8\n");
-    for (i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++) {
         printf("%d ",i+1);
-        for (k = 0; k < 8; k++) {
-            switch (e->grelha[i][k]) {
+        for (int j = 0; j < 8; j++) {
+            switch (e->grelha[i][j]) {
                 case VALOR_O: {
                     c = 'O';
                     break;
                 }
-                case VALOR_X : {
+                case VALOR_X: {
                     c = 'X';
                     break;
                 }
@@ -389,103 +378,12 @@ void giveHint (ESTADO *e){
                     break;
                 }
             }
-            if (i==l && k == col) printf("? ");
+            if (i == x && j == y) printf("? ");
             else printf("%c ", c);
 
         }
         printf("\n");
     }
-}
-
-int killCount (ESTADO *e,int x,int y){
-        int c=y,l=x;
-        VALOR p;
-        int contagem = 0;
-        if (e->peca == VALOR_X) p = VALOR_O; // p -> peça contrária
-        else p = VALOR_X;
-
-        // modificar para a direita--------------------------
-        while (e->grelha[l][c+1] == p && c < 8) c++;
-        if (c==8) ;
-        else if (e->grelha[l][c+1] == e->peca) for(;c!=y;c--) contagem ++;
-
-        else;
-        //----------------------------------------------------
-        c=y,l=x;
-
-        // modificar para a esquerda-------------------------
-        while (e->grelha[l][c-1] == p && c > 0) c--;
-        if (c==0);
-        else if (e->grelha[l][c-1] == e->peca) for (;c!=y;c++) contagem ++;
-
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar para baixo--------------------------------
-        while (e->grelha[l+1][c] == p && l < 8) l++;
-        if (l == 8);
-        else if (e->grelha[l+1][c] == e->peca) for (;l!=x;l--) contagem ++;
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar para cima
-        while (e->grelha[l-1][c] == p && l > 0) l--;
-        if (l == 0);
-        else if (e->grelha[l-1][c] == e->peca) for (;l!=x;l++) contagem ++;
-
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar cima direita
-        while (e->grelha[l-1][c+1] == p && c < 8 && l > 0) {
-            l--;
-            c++;
-        }
-        if (l == 0 || c == 8 );
-        else if (e->grelha[l-1][c+1] == e->peca) for (;l!=x;l++,c--) contagem ++;
-
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar cima esquerda
-        while (e->grelha[l-1][c-1] == p && c > 0 && l > 0) {
-            l--;
-            c--;
-        }
-        if (l == 0 || c == 0 );
-        else if (e->grelha[l-1][c-1] == e->peca) for (;l!=x;l++,c++) contagem ++;
-
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar baixo esquerda
-        while (e->grelha[l+1][c-1] == p && c > 0 && l < 8) {
-            l++;
-            c--;
-        }
-        if (l == 8 || c == 0 );
-        else if (e->grelha[l+1][c-1] == e->peca) for (;l!=x;c++,l--) contagem ++;
-
-        else;
-        //-----------------------------------------------------
-        c=y,l=x;
-
-        // modificar baixo direita
-        while (e->grelha[l+1][c+1] == p && c < 8 && l < 8) {
-            l++;
-            c++;
-        }
-        if (l == 8 || c == 8 );
-        else if (e->grelha[l+1][c+1] == e->peca) for (;l!=x;l--,c--) contagem ++;
-        else;
-        //-----------------------------------------------------
-    return contagem;
-
 }
 
 int gameOver (ESTADO *e, int *contaX, int *contaO) {

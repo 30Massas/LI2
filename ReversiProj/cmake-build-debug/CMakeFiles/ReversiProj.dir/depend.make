@@ -4,6 +4,7 @@
 CMakeFiles/ReversiProj.dir/botfunction.c.o: ../botfunction.c
 CMakeFiles/ReversiProj.dir/botfunction.c.o: ../estado.h
 
+CMakeFiles/ReversiProj.dir/estado.c.o: ../botfunction.h
 CMakeFiles/ReversiProj.dir/estado.c.o: ../estado.c
 CMakeFiles/ReversiProj.dir/estado.c.o: ../estado.h
 

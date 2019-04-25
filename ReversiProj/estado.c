@@ -357,7 +357,7 @@ void copyEstado (ESTADO *e, ESTADO *aux){
 
 void giveHint (ESTADO *e) {
     int x,y;
-    maxplay(e,&x,&y,2,2);
+    maxplay(e,&x,&y,3,3);
     char c = ' ';
 
     printf("  1 2 3 4 5 6 7 8\n");

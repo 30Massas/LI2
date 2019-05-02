@@ -136,46 +136,6 @@ int contaPontos (ESTADO *e,int x, int y) {
     return soma;
 }
 
-/*
-int maxbot (ESTADO *e, int *x, int *y) {
-    int i, k;
-    int temp, max = -99999;
-    for (i = 0; i < 8; i++) {
-        for (k = 0; k < 8; k++) {
-            if (verificajogada(e, i, k)) {
-                temp = contaPontos(e, i, k);
-                if (temp >= max) {
-                    max = temp;
-                }
-            }
-        }
-    }
-    return max;
-}
-
-int minbot (ESTADO *e, int *x, int *y){
-    int i,k;
-    int temp, min = 99999;
-    for (i = 0; i < 8; i++) {
-        for (k = 0; k < 8; k++) {
-            if (verificajogada(e, i, k)){
-
-                ESTADO *aux = malloc(sizeof(struct estado));
-                copyEstado(e, aux);
-                joga(aux, i, k);
-                trocapeca(aux);
-                temp = maxbot(aux,x,y);
-                trocapeca(aux);
-                if (temp <= min){
-                    min = temp;
-                }
-            }
-        }
-    }
-    return min;
-}
-*/
-
 
 int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
     int result;

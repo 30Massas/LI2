@@ -142,7 +142,7 @@ void joga (ESTADO *e, int x, int y){
 
     // modificar baixo direita
     l++;c++;
-    while (e->grelha[l][c] == p && c < 8 && l < 8) {
+    while ( c < 8 && l < 8 && e->grelha[l][c] == p) {
         l++;
         c++;
     }
@@ -242,23 +242,28 @@ int verificajogada (ESTADO *e, int x, int y) {
 
     return flag;
 }
-void readGame (ESTADO *e, char linha[]) {
+
+int readGame (ESTADO *e, char linha[]) {
     FILE *file;
     char modo;
     char peca;
     char ficheiro[50];
     int nivel;
     int i, k, j;
+    int aux = 0;
     sscanf(linha, "%c %s", &modo, ficheiro);
     file = fopen(strcat(ficheiro, ".txt"), "r");
-    if (file == NULL) printf("O ficheiro não existe");
+    if (file == NULL) printf("O ficheiro não existe\n");
     else {
-        fscanf(file, "%c %c", &modo, &peca);
+        aux = 1;
+        fscanf(file, "%c %c ", &modo, &peca);
         if (modo == 'M') e->modo = 0;
         else {
             e->modo = 1;
-            fscanf(file, "%c %c %d", &modo, &peca, &nivel);
+            fscanf(file, "%d", &nivel);
+            e->nivel = nivel;
         }
+
         if (peca == 'X') e->peca = VALOR_X;
         else e->peca = VALOR_O;
         fseek(file, 1, SEEK_CUR);
@@ -282,6 +287,7 @@ void readGame (ESTADO *e, char linha[]) {
         fclose(file);
 
     }
+    return aux;
 }
 
 void guardajogo (ESTADO *e , char linha[]) {

@@ -211,14 +211,20 @@ int main() {
                         free(e);
                         e = aux;
                     }
-                    readGame(e, linha);
-                    if (e->modo == 1) {
-                        if (e->peca == VALOR_O) piece = VALOR_X;
-                        else if (e->peca == VALOR_X) piece = VALOR_O;
-                        else piece = VAZIA;
+                    if (readGame(e, linha) == 1) {
+                        if (e->modo == 1) {
+                            if (e->peca == VALOR_O) piece = VALOR_X;
+                            else if (e->peca == VALOR_X) piece = VALOR_O;
+                            else piece = VAZIA;
+                        }
+                        state = 1;
+                        resultado = gameOver(e, &contaX, &contaO);
                     }
-                    state = 1;
-                    resultado = gameOver(e, &contaX, &contaO);
+                    else {
+                        state = 0;
+                        e->peca = VAZIA;
+                        resultado = 0;
+                    }
                     break;
                 }
                 case 'Q' : {

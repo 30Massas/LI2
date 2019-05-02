@@ -50,14 +50,22 @@ int main() {
                 }
                 case 'A' : {
                     sscanf(linha,"%c %c %d",&c1,&c2,&nivel);
-                    if (nivel < 1);
+                    if (nivel < 1 || (toupper(c2) != 'X' && toupper(c2) != 'O'));
                     else {
                         novoEstado(e, linha);
-                        piece = e->peca;
                         state = 1;
                         resultado = 0;
                         e->modo = 1;
                         e->nivel = nivel;
+                        if (toupper(c2) == 'X') {
+                            piece = VALOR_X;
+                            maxplay(e, &line, &col, 2 * nivel + 1, 2 * nivel + 1);
+                            joga(e, line, col);
+                            printa(*e, &contaX, &contaO);
+                            printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                            trocapeca(e);
+                        }
+                        else piece = VALOR_O;
                     }
                     break;
                 }
@@ -71,7 +79,7 @@ int main() {
 
                         // modo manual-automatico
                         if (e->modo == 0 || e->modo == 1) {
-                            if (e->peca != VAZIA) {
+                            if (e->peca != piece) {
                                 sscanf(linha, "%c %d %d", &c1, &x, &y);
                                 if (verificajogada(e, x - 1, y - 1)) {
 
@@ -85,18 +93,19 @@ int main() {
                                     joga(e, x - 1, y - 1);
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
-
-                                    if (!oppPlayable(e) && playerPlayable(e)) {
+                                    if (oppPlayable(e)) trocapeca(e);
+                                    else if (!oppPlayable(e) && playerPlayable(e)) {
                                         if (e->peca == VALOR_X) printf("Jogador O sem jogadas válidas!\n");
                                         else printf("Jogador X sem jogadas válidas!\n");
-                                    } else if (oppPlayable(e)) trocapeca(e);
+                                    }
                                     else resultado = gameOver(e, &contaX, &contaO);
 
 
                                 } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
+                            }
                                 // modo automático
-                                if (resultado == 0) {
-                                    if (e->modo == 1 && piece != e->peca) { // é certo que o bot pode jogar
+                                 if (resultado == 0 && e->peca == piece) {
+                                     // é certo que o bot pode jogar
                                         do {
                                             // as funções do bot vão aqui
                                             printf("%d\n",
@@ -114,12 +123,23 @@ int main() {
                                         // -----------------
                                         // se o jogador não puder jogar
 
-                                    }
+
                                 }
-                            }
                             // ---------------------------------------------------------------
 
                         }
+
+
+
+
+
+
+
+
+
+
+
+
                         else if (e->modo == 3) {
                             do {
                                 if (!playerPlayable(e) && oppPlayable(e)) {
@@ -184,13 +204,25 @@ int main() {
                     else printf("Jogador sem jogadas válidas");
                     break;
                 }
-                case 'L' :
-                    {
-                    readGame(e,linha);
-                    piece = e->peca;
+                case 'L' : {
+                    ESTADO *aux = e;
+                    while (aux->ant != NULL) {
+                        aux = aux->ant;
+                        free(e);
+                        e = aux;
+                    }
+                    readGame(e, linha);
+                    if (e->modo == 1) {
+                        if (e->peca == VALOR_O) piece = VALOR_X;
+                        else if (e->peca == VALOR_X) piece = VALOR_O;
+                        else piece = VAZIA;
+                    }
                     state = 1;
-                    resultado = gameOver(e, &contaX, &contaO);;
+                    resultado = gameOver(e, &contaX, &contaO);
                     break;
+                }
+                case 'Q' : {
+                    exit(0);
                 }
             }
         } while (toupper(linha[0] != 'Q'));

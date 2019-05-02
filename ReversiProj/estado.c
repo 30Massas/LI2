@@ -247,6 +247,7 @@ void readGame (ESTADO *e, char linha[]) {
     char modo;
     char peca;
     char ficheiro[50];
+    int nivel;
     int i, k, j;
     sscanf(linha, "%c %s", &modo, ficheiro);
     file = fopen(strcat(ficheiro, ".txt"), "r");
@@ -254,7 +255,10 @@ void readGame (ESTADO *e, char linha[]) {
     else {
         fscanf(file, "%c %c", &modo, &peca);
         if (modo == 'M') e->modo = 0;
-        else e->modo = 1;
+        else {
+            e->modo = 1;
+            fscanf(file, "%c %c %d", &modo, &peca, &nivel);
+        }
         if (peca == 'X') e->peca = VALOR_X;
         else e->peca = VALOR_O;
         fseek(file, 1, SEEK_CUR);
@@ -286,20 +290,28 @@ void guardajogo (ESTADO *e , char linha[]) {
     char peca;
     char ficheiro[50];
     int i,k;
+    int nivel;
     sscanf(linha,"%c %s",&modo, ficheiro);
     file = fopen(strcat(ficheiro, ".txt"), "w");
+    nivel = e->nivel;
 
-    if (e->modo == 0) modo = 'M';
-    else modo = 'A';
     if (e->peca == VALOR_X) peca = 'X';
     else peca = 'O';
+    if (e->modo == 0) {
+        modo = 'M';
+        fprintf(file,"%c %c\n",modo,peca);
+    }
+    else {
+        modo = 'A';
+        fprintf(file,"%c %c %d\n",modo,peca,nivel);
+    }
 
-    fprintf(file,"%c %c\n",modo,peca);
+
     for (i = 0;i<8;i++){
         for (k = 0; k<8;k++){
             if (e->grelha[i][k] == VALOR_X) fprintf(file,"X ");
             else if (e->grelha[i][k] == VALOR_O) fprintf(file,"O ");
-            else if (verificajogada(e,i,k)) fprintf(file,". ");
+            //else if (verificajogada(e,i,k)) fprintf(file,". ");
             else fprintf(file,"- ");
         }
         fprintf(file,"\n");
@@ -338,9 +350,12 @@ void novoEstado (ESTADO *e, char linha[]){
     e->grelha[3][3] = VALOR_O;
     e->grelha[4][4] = VALOR_O;
     sscanf(linha,"%c %c",&c1,&c2);
-    if (toupper(c2) == 'X') e->peca = VALOR_X;
-    else e->peca = VALOR_O;
-    e->nivel = 0;
+    if (toupper(c1) == 'N') {
+        if (toupper(c2) == 'X') e->peca = VALOR_X;
+        else e->peca = VALOR_O;
+        e->nivel = 0;
+    }
+    else e->peca = VALOR_X;
 }
 
 void copyEstado (ESTADO *e, ESTADO *aux){
@@ -357,7 +372,7 @@ void copyEstado (ESTADO *e, ESTADO *aux){
 
 void giveHint (ESTADO *e) {
     int x,y;
-    maxplay(e,&x,&y,3,3);
+    maxplay(e,&x,&y,7,7);
     char c = ' ';
 
     printf("  1 2 3 4 5 6 7 8\n");

@@ -154,7 +154,14 @@ void joga (ESTADO *e, int x, int y){
     else;
     //-----------------------------------------------------
 }
-
+void verificajogada2 (ESTADO *e){
+    int i,k;
+    for (i=0;i<8;i++){
+        for (k=0;k<8;k++){
+            e->validade[i][k] = verificajogada(e,i,k);
+        }
+    }
+}
 int verificajogada (ESTADO *e, int x, int y) {
     int flag = 0;
     if (e->grelha[x][y] != VAZIA);
@@ -173,7 +180,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //esquerda
-        if (e->grelha[x][y - 1] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x][y - 1] == p) {
             c--;
             while (e->grelha[l][c] == p && c >= 0) c--;
             if (e->grelha[l][c] == e->peca && c >= 0) flag = 1;
@@ -181,7 +188,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //cima
-        if (e->grelha[x - 1][y] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x - 1][y] == p) {
             l--;
             while (e->grelha[l][c] == p && l >= 0) l--;
             if (e->grelha[l][c] == e->peca && l >= 0) flag = 1;
@@ -189,7 +196,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //baixo
-        if (e->grelha[x + 1][y] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x + 1][y] == p) {
             l++;
             while (e->grelha[l][c] == p && l < 8) l++;
             if (e->grelha[l][c] == e->peca && l < 8) flag = 1;
@@ -197,7 +204,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //cima direita
-        if (e->grelha[x - 1][y + 1] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x - 1][y + 1] == p) {
             l--;c++;
             while (e->grelha[l][c] == p && l >= 0 && c < 8) {
                 l--;
@@ -208,7 +215,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //baixo direita
-        if (e->grelha[x + 1][y + 1] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x + 1][y + 1] == p) {
             l++;c++;
             while (e->grelha[l][c] == p && l < 8 && c < 8) {
                 l++;
@@ -219,7 +226,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //baixo esquerda
-        if (e->grelha[x + 1][y - 1] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x + 1][y - 1] == p) {
             l++;c--;
             while (e->grelha[l][c] == p && l < 8 && c >= 0) {
                 l++;
@@ -230,7 +237,7 @@ int verificajogada (ESTADO *e, int x, int y) {
         l = x, c = y;
 
         //cima esquerda
-        if (e->grelha[x - 1][y - 1] == p && flag == 0) {
+        if (flag == 0 && e->grelha[x - 1][y - 1] == p) {
             l--;c--;
             while (e->grelha[l][c] == p && l >= 0 && c >= 0) {
                 l--;
@@ -248,7 +255,7 @@ int readGame (ESTADO *e, char linha[]) {
     char modo;
     char peca;
     char ficheiro[50];
-    int nivel;
+    char nivel;
     int i, k, j;
     int aux = 0;
     sscanf(linha, "%c %s", &modo, ficheiro);
@@ -260,8 +267,10 @@ int readGame (ESTADO *e, char linha[]) {
         if (modo == 'M') e->modo = 0;
         else {
             e->modo = 1;
-            fscanf(file, "%d", &nivel);
-            e->nivel = nivel;
+            fscanf(file, "%c", &nivel);
+            if (nivel == '1') e->nivel = 1;
+            else if (nivel == '2') e->nivel = 2;
+            else if (nivel == '3') e->nivel = 3;
         }
 
         if (peca == 'X') e->peca = VALOR_X;
@@ -296,10 +305,9 @@ void guardajogo (ESTADO *e , char linha[]) {
     char peca;
     char ficheiro[50];
     int i,k;
-    int nivel;
+    char nivel;
     sscanf(linha,"%c %s",&modo, ficheiro);
     file = fopen(strcat(ficheiro, ".txt"), "w");
-    nivel = e->nivel;
 
     if (e->peca == VALOR_X) peca = 'X';
     else peca = 'O';
@@ -309,7 +317,10 @@ void guardajogo (ESTADO *e , char linha[]) {
     }
     else {
         modo = 'A';
-        fprintf(file,"%c %c %d\n",modo,peca,nivel);
+        if (e->nivel == 1) nivel = '1';
+        else if (e->nivel == 2) nivel = '2';
+        else nivel = '3';
+        fprintf(file,"%c %c %c\n",modo,peca,nivel);
     }
 
 
@@ -333,7 +344,7 @@ void whereCanIPut (ESTADO *e){
         for (k = 0; k<8;k++){
             if (e->grelha[i][k] == VALOR_X) printf("X ");
             else if (e->grelha[i][k] == VALOR_O) printf("O ");
-            else if (verificajogada(e,i,k)) printf(". ");
+            else if (e->validade[i][k]) printf(". ");
             else printf("- ");
         }
         putchar('\n');
@@ -362,15 +373,18 @@ void novoEstado (ESTADO *e, char linha[]){
         e->nivel = 0;
     }
     else e->peca = VALOR_X;
+    verificajogada2(e);
 }
 
 void copyEstado (ESTADO *e, ESTADO *aux){
     aux->peca = e->peca;
     aux->modo = e->modo;
+    aux->nivel = e->nivel;
     int i,k;
     for (i=0;i<8;i++){
         for (k=0;k<8;k++){
             aux->grelha[i][k] = e->grelha[i][k];
+            aux->validade[i][k] = e->validade[i][k];
         }
     }
     aux->ant = e->ant;
@@ -378,7 +392,7 @@ void copyEstado (ESTADO *e, ESTADO *aux){
 
 void giveHint (ESTADO *e) {
     int x,y;
-    maxplay(e,&x,&y,7,7);
+    maxplay(e,&x,&y,5,5);
     char c = ' ';
 
     printf("  1 2 3 4 5 6 7 8\n");
@@ -434,13 +448,8 @@ int gameOver (ESTADO *e, int *contaX, int *contaO) {
     return resultado;
 }
 int checkIfPlayable (ESTADO *e){
-    int flag1 = 0,flag2 = 0;
     int resultado = 0;
-    flag1 = playerPlayable(e);
-    trocapeca(e);
-    flag2 = playerPlayable(e);
-    trocapeca(e);
-    if (flag1 == 0 && flag2 == 0) resultado = 0;
+    if (!playerPlayable(e) && !oppPlayable(e)) resultado = 0;
     else resultado = 1;
     return resultado;
 }
@@ -450,7 +459,7 @@ int playerPlayable (ESTADO *e){
     int flag1 = 0;
     for (i=0;i<8 && flag1 == 0;i++){
         for (k=0;k<8 && flag1 == 0;k++){
-            if (verificajogada(e,i,k)) flag1 = 1;
+            if (e->validade[i][k]) flag1 = 1;
         }
     }
     return flag1;
@@ -461,7 +470,7 @@ int oppPlayable (ESTADO *e){
     trocapeca(e);
     for (i=0;i<8 && flag1 == 0;i++){
         for (k=0;k<8 && flag1 == 0;k++){
-            if (verificajogada(e,i,k)) flag1 = 1;
+            if (e->validade[i][k]) flag1 = 1;
         }
     }
     trocapeca(e);
@@ -471,6 +480,7 @@ int oppPlayable (ESTADO *e){
 void trocapeca (ESTADO *e){
     if (e->peca == VALOR_X) e->peca = VALOR_O;
     else e->peca = VALOR_X;
+    verificajogada2(e);
 }
 
 void interface (){

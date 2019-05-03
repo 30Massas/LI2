@@ -3,6 +3,7 @@
 #include <string.h>
 #include "ctype.h"
 #include "botfunction.h"
+#include "math.h"
 int main() {
     char c1,c2;
     char linha[50];
@@ -59,7 +60,7 @@ int main() {
                         e->nivel = nivel;
                         if (toupper(c2) == 'X') {
                             piece = VALOR_X;
-                            maxplay(e, &line, &col, 2 * nivel + 1, 2 * nivel + 1);
+                            maxplay(e, &line, &col, nivel + (nivel-1), nivel + (nivel-1));
                             joga(e, line, col);
                             printa(*e, &contaX, &contaO);
                             printf("\n#X = %d   #O = %d\n", contaX, contaO);
@@ -81,7 +82,7 @@ int main() {
                         if (e->modo == 0 || e->modo == 1) {
                             if (e->peca != piece) {
                                 sscanf(linha, "%c %d %d", &c1, &x, &y);
-                                if (verificajogada(e, x - 1, y - 1)) {
+                                if (e->validade[x-1][y-1]) {
 
                                     //avançar o estado
                                     ESTADO *aux = malloc(sizeof(struct estado));
@@ -94,7 +95,7 @@ int main() {
                                     printa(*e, &contaX, &contaO);
                                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                                     if (oppPlayable(e)) trocapeca(e);
-                                    else if (!oppPlayable(e) && playerPlayable(e)) {
+                                    else if (playerPlayable(e)) {
                                         if (e->peca == VALOR_X) printf("Jogador O sem jogadas válidas!\n");
                                         else printf("Jogador X sem jogadas válidas!\n");
                                     }
@@ -109,8 +110,7 @@ int main() {
                                         do {
                                             // as funções do bot vão aqui
                                             printf("%d\n",
-                                                   maxplay(e, &line, &col, 2 * nivel + 1, 2 * nivel +
-                                                                                          1)); // a line e a col ficam com as posições onde deve jogar
+                                                   maxplay(e, &line, &col, nivel + (nivel-1), nivel + (nivel-1))); // a line e a col ficam com as posições onde deve jogar
 
                                             joga(e, line, col);
                                             printa(*e, &contaX, &contaO);
@@ -150,7 +150,7 @@ int main() {
                                     do {
                                         // as funções do bot vão aqui
                                         printf("%d\n",
-                                               maxplay(e, &line, &col, 2 * nivel + 1, 2 * nivel + 1)); // a line e a col ficam com as posições onde deve jogar
+                                               maxplay(e, &line, &col, nivel + (nivel-1), nivel + (nivel-1))); // a line e a col ficam com as posições onde deve jogar
 
                                         joga(e, line, col);
                                         printa(*e, &contaX, &contaO);
@@ -218,6 +218,8 @@ int main() {
                             else piece = VAZIA;
                         }
                         state = 1;
+                        verificajogada2(e);
+                        nivel = e->nivel;
                         resultado = gameOver(e, &contaX, &contaO);
                     }
                     else {

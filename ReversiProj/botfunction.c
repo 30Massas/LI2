@@ -3,6 +3,14 @@
 int contaPontos (ESTADO *e,int x, int y) {
     int soma = 0;
     int i, k;
+    int pontos[8][8]= { {1000, -300, 100, 80,   80,    100, -300,  1000},
+                        {-300, -500, -45, -50, -50,    -45, -500,  -300},
+                        {100,  -45,  3,   1,    1,      3,  -45,   100},
+                        {80,   -50,  1,   5,    5,      1,  -50,   80},
+                        {80,   -50,  1,   5,    5,      1,  -50,   80},
+                        {100,  -45,  3,   1,    1,      3,  -45,   100},
+                        {-300, -500, -45, -50, -50,    -45, -500,  -300},
+                        {1000, -300, 100, 80,   80,    100, -300,  1000}};
     // cria um estado auxiliar e simula as peças alteradas
     ESTADO *aux = malloc(sizeof(struct estado));
     copyEstado(e, aux);
@@ -15,36 +23,11 @@ int contaPontos (ESTADO *e,int x, int y) {
     // dependendo das posições em que se encontram as suas peças, é feito um somatório
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
-            if (aux->grelha[i][k] == aux->peca) {
-                if ((i == 0 || i == 7) && (k == 0 || k == 7)) soma += 1000;
-                else if ((i == 1 && k == 1) || (i == 1 && k == 6) || (i == 6 && k == 1) || (i == 6 && k == 6)) soma -= 500;
-                else if ((i == 1 && k == 0) || (i == 0 && k == 1) || (i == 0 && k == 6) || (i == 1 && k == 7) || (i == 6 && k == 0) || (i == 7 && k == 1) || (i == 6 && k == 7) || (i == 7 && k == 6))
-                    soma -= 300;
-                else if ((i == 0 && k == 2) || (i == 0 && k == 5) || (i == 7 && k == 2) || (i == 7 && k == 5) ||
-                         (i == 2 && k == 0) || (i == 2 && k == 7) || (i == 5 && k == 0) || (i == 5 && k == 7))
-                    soma += 100;
-                else if ((i == 0 && k == 3) || (i == 0 && k == 4) || (i == 7 && k == 3) || (i == 7 && k == 4) ||
-                         (i == 3 && k == 0) || (i == 3 && k == 7) || (i == 4 && k == 0) || (i == 4 && k == 7))
-                    soma += 80;
-                else if ((i == 1 && k == 3) || (i == 1 && k == 4) || (i == 6 && k == 3) || (i == 6 && k == 4) ||
-                         (i == 3 && k == 1) || (i == 3 && k == 6) || (i == 4 && k == 1) || (i == 4 && k == 6))
-                    soma -= 50;
-                else if ((i == 1 && k == 2) || (i == 2 && k == 1) || (i == 1 && k == 5) || (i == 2 && k == 6) ||
-                         (i == 5 && k == 1) || (i == 6 && k == 2) || (i == 5 && k == 6) || (i == 6 && k == 5))
-                    soma -= 45;
-                else if ((i == 2 && k == 2) || (i == 2 && k == 5) || (i == 5 && k == 2) || (i == 5 && k == 5))
-                    soma += 3;
-                else if ((i == 2 && k == 3) || (i == 2 && k == 4) || (i == 5 && k == 3) || (i == 5 && k == 4) ||
-                         (i == 3 && k == 2) || (i == 3 && k == 5) || (i == 4 && k == 2) || (i == 4 && k == 5))
-                    soma += 1;
-                else if ((i == 3 && k == 3) || (i == 4 && k == 4) ||
-                         (i == 3 && k == 4) ||
-                         (i == 4 && k == 3))
-                    soma += 5;
-                else soma += 1000;
-            }
+            if (aux->grelha[i][k] == aux->peca) soma+= pontos[i][k];
         }
     }
+
+
     for (i=0,k=0;k<8;k++) {
         if (aux->grelha[i][k] != aux->peca) flag = 0;
     }
@@ -76,34 +59,7 @@ int contaPontos (ESTADO *e,int x, int y) {
 
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
-            if (aux->grelha[i][k] == aux->peca) {
-                if ((i == 0 || i == 7) && (k == 0 || k == 7)) soma -= 1000;
-                else if ((i == 1 && k == 1) || (i == 1 && k == 6) || (i == 6 && k == 1) || (i == 6 && k == 6)) soma += 500;
-                else if ((i == 1 && k == 0) || (i == 0 && k == 1) || (i == 0 && k == 6) || (i == 1 && k == 7) || (i == 6 && k == 0) || (i == 7 && k == 1) || (i == 6 && k == 7) || (i == 7 && k == 6))
-                    soma += 300;
-                else if ((i == 0 && k == 2) || (i == 0 && k == 5) || (i == 7 && k == 2) || (i == 7 && k == 5) ||
-                         (i == 2 && k == 0) || (i == 2 && k == 7) || (i == 5 && k == 0) || (i == 5 && k == 7))
-                    soma -= 100;
-                else if ((i == 0 && k == 3) || (i == 0 && k == 4) || (i == 7 && k == 3) || (i == 7 && k == 4) ||
-                         (i == 3 && k == 0) || (i == 3 && k == 7) || (i == 4 && k == 0) || (i == 4 && k == 7))
-                    soma -= 80;
-                else if ((i == 1 && k == 3) || (i == 1 && k == 4) || (i == 6 && k == 3) || (i == 6 && k == 4) ||
-                         (i == 3 && k == 1) || (i == 3 && k == 6) || (i == 4 && k == 1) || (i == 4 && k == 6))
-                    soma += 50;
-                else if ((i == 1 && k == 2) || (i == 2 && k == 1) || (i == 1 && k == 5) || (i == 2 && k == 6) ||
-                         (i == 5 && k == 1) || (i == 6 && k == 2) || (i == 5 && k == 6) || (i == 6 && k == 5))
-                    soma += 45;
-                else if ((i == 2 && k == 2) || (i == 2 && k == 5) || (i == 5 && k == 2) || (i == 5 && k == 5))
-                    soma -= 3;
-                else if ((i == 2 && k == 3) || (i == 2 && k == 4) || (i == 5 && k == 3) || (i == 5 && k == 4) ||
-                         (i == 3 && k == 2) || (i == 3 && k == 5) || (i == 4 && k == 2) || (i == 4 && k == 5))
-                    soma -= 1;
-                else if ((i == 3 && k == 3) || (i == 4 && k == 4) ||
-                         (i == 3 && k == 4) ||
-                         (i == 4 && k == 3))
-                    soma -= 5;
-                else soma -= 1000;
-            }
+            if (aux->grelha[i][k] == aux->peca) soma -= pontos[i][k];
         }
     }
 
@@ -139,13 +95,13 @@ int contaPontos (ESTADO *e,int x, int y) {
 
 int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
     int result;
-    if (nivel == 0);
+    if (nivel <= 0);
     else if (nivel == 1) {
         int i, k;
         int temp, max = -999999;
         for (i = 0; i < 8; i++) {
             for (k = 0; k < 8; k++) {
-                if (verificajogada(e, i, k)) {
+                if (e->validade[i][k]) {
                     temp = contaPontos(e, i, k);
                     if (temp >= max) {
                         max = temp;
@@ -164,7 +120,7 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
         int temp, min = 999999;
         for (i = 0; i < 8; i++) {
             for (k = 0; k < 8; k++) {
-                if (verificajogada(e, i, k)){
+                if (e->validade[i][k]){
 
                     ESTADO *aux = malloc(sizeof(struct estado));
                     copyEstado(e, aux);
@@ -189,7 +145,7 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
         int temp, max = -999999;
         for (i = 0; i < 8; i++) {
             for (k = 0; k < 8; k++) {
-                if (verificajogada(e, i, k)) {
+                if (e->validade[i][k]) {
 
 
                     ESTADO *aux = malloc(sizeof(struct estado));

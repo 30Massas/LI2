@@ -54,7 +54,13 @@ int contaPontos (ESTADO *e,int x, int y) {
     if (flag == 1) soma+= 8000;
 
     flag = 1;
-    trocapeca(aux);
+
+
+    //troca peça
+    if (aux->peca == VALOR_X) aux->peca = VALOR_O;
+    else aux->peca = VALOR_X;
+
+
 
 
     for (i = 0; i < 8; i++) {
@@ -86,7 +92,7 @@ int contaPontos (ESTADO *e,int x, int y) {
         if (aux->grelha[i][k] != aux->peca) flag = 0;
     }
     if (flag == 1) soma-= 8000;
-    trocapeca(aux);
+
 
     free(aux);
     return soma;

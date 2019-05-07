@@ -1,0 +1,48 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/joao/Desktop/BACKUP REVERSI/botfunction.c
+estado.h
+/home/joao/Desktop/BACKUP REVERSI/estado.h
+
+/home/joao/Desktop/BACKUP REVERSI/botfunction.h
+estado.h
+/home/joao/Desktop/BACKUP REVERSI/estado.h
+
+/home/joao/Desktop/BACKUP REVERSI/estado.c
+stdio.h
+-
+estado.h
+/home/joao/Desktop/BACKUP REVERSI/estado.h
+botfunction.h
+/home/joao/Desktop/BACKUP REVERSI/botfunction.h
+
+/home/joao/Desktop/BACKUP REVERSI/estado.h
+stdio.h
+-
+string.h
+-
+ctype.h
+/home/joao/Desktop/BACKUP REVERSI/ctype.h
+stdlib.h
+/home/joao/Desktop/BACKUP REVERSI/stdlib.h
+
+/home/joao/Desktop/BACKUP REVERSI/main.c
+stdio.h
+-
+estado.h
+/home/joao/Desktop/BACKUP REVERSI/estado.h
+string.h
+-
+ctype.h
+/home/joao/Desktop/BACKUP REVERSI/ctype.h
+botfunction.h
+/home/joao/Desktop/BACKUP REVERSI/botfunction.h
+math.h
+/home/joao/Desktop/BACKUP REVERSI/math.h
+

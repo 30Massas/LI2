@@ -99,7 +99,7 @@ int contaPontos (ESTADO *e,int x, int y) {
 }
 
 
-int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
+int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig, int alpha, int beta) {
     int result;
     if (nivel <= 0);
     else if (nivel == 1) {
@@ -109,13 +109,14 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
             for (k = 0; k < 8; k++) {
                 if (e->validade[i][k]) {
                     temp = contaPontos(e, i, k);
-                    if (temp >= max) {
+                    if (temp > max) {
                         max = temp;
                         if (nivel == orig) {
                             *x = i;
                             *y = k;
                         }
                     }
+                    if (max >= alpha) return alpha;
                 }
             }
         }
@@ -132,15 +133,17 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
                     copyEstado(e, aux);
                     joga(aux, i, k);
                     trocapeca(aux);
-                    temp = maxplay(aux,x,y,nivel-1,orig);
+                    temp = maxplay(aux,x,y,nivel-1,orig, 9999,-9999);
                     trocapeca(aux);
-                    if (temp <= min){
+                    if (temp < min){
                         min = temp;
                         if (nivel == orig) {
                             *x = i;
                             *y = k;
                         }
                     }
+                if (min <= beta) return beta;
+                free(aux);
                 }
             }
         }
@@ -158,15 +161,17 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig) {
                     copyEstado(e, aux);
                     joga(aux, i, k);
                     trocapeca(aux);
-                    temp = maxplay(aux, x, y,nivel-1,orig);
+                    temp = maxplay(aux, x, y,nivel-1,orig, 9999, -9999);
                     trocapeca(aux);
-                    if (temp >= max) {
+                    if (temp > max) {
                         max = temp;
                         if (nivel == orig) {
                             *x = i;
                             *y = k;
                         }
                     }
+                    if (max >= alpha) return alpha;
+                    free (aux);
                 }
             }
         }

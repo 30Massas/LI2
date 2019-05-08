@@ -142,7 +142,10 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig, int alpha, int beta)
                             *y = k;
                         }
                     }
-                if (min <= beta) return beta;
+                if (min <= beta) {
+                    free(aux);
+                    return beta;
+                }
                 free(aux);
                 }
             }
@@ -170,7 +173,10 @@ int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig, int alpha, int beta)
                             *y = k;
                         }
                     }
-                    if (max >= alpha) return alpha;
+                    if (max >= alpha) {
+                        free(aux);
+                        return alpha;
+                    }
                     free (aux);
                 }
             }

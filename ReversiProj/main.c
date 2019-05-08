@@ -59,6 +59,12 @@ int main() {
                 sscanf(linha,"%c %c %d",&c1,&c2,&nivel);
                 if (nivel < 1 || (toupper(c2) != 'X' && toupper(c2) != 'O'));
                 else {
+                    ESTADO *aux = e;
+                    while (aux->ant != NULL) {
+                        aux = aux->ant;
+                        free(e);
+                        e = aux;
+                    }
                     novoEstado(e, linha);
                     state = 1;
                     resultado = 0;

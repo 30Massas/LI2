@@ -42,12 +42,6 @@ int main() {
                 break;
             }
             case 'N' : { // cria novo jogo
-                ESTADO *aux = e;
-                while (aux->ant != NULL) {
-                    aux = aux->ant;
-                    free(e);
-                    e = aux;
-                }
                 novoEstado(e, linha);
                 state = 1;
                 resultado = 0;
@@ -59,12 +53,6 @@ int main() {
                 sscanf(linha, "%c %c %d", &c1, &c2, &nivel);
                 if (nivel < 1 || (toupper(c2) != 'X' && toupper(c2) != 'O'));
                 else {
-                    ESTADO *aux = e;
-                    while (aux->ant != NULL) {
-                        aux = aux->ant;
-                        free(e);
-                        e = aux;
-                    }
                     novoEstado(e, linha);
                     state = 1;
                     resultado = 0;
@@ -79,6 +67,7 @@ int main() {
                         trocapeca(e);
                     } else piece = VALOR_O;
                     printa(*e, &contaX, &contaO);
+                    printf("O Bot jogou em (%d,%d)\n",line,col);
                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                 }
                 break;
@@ -128,6 +117,7 @@ int main() {
 
                                 joga(e, line, col);
                                 printa(*e, &contaX, &contaO);
+                                printf("O Bot jogou em (%d,%d)\n",line,col);
                                 printf("\n#X = %d   #O = %d\n", contaX, contaO);
 
                             } while (!oppPlayable(e) && playerPlayable(e));
@@ -195,6 +185,8 @@ int main() {
                         e = e->ant;
                         free(aux);
                         resultado = 0;
+                        printa(*e, &contaX, &contaO);
+                        printf("\n#X = %d   #O = %d\n", contaX, contaO);
                     }
                 } else printf("Jogo ainda não criado // N <peça>\n");
                 break;
@@ -206,13 +198,7 @@ int main() {
                 break;
             }
             case 'L' : {
-                ESTADO *aux = e;
-                while (aux->ant != NULL) {
-                    aux = aux->ant;
-                    free(e);
-                    e = aux;
-                }
-                if (readGame(e, linha) == 1) {
+                if (readGame(e, linha)) {
                     if (e->modo == 1) {
                         if (e->peca == VALOR_O) piece = VALOR_X;
                         else if (e->peca == VALOR_X) piece = VALOR_O;
@@ -222,6 +208,8 @@ int main() {
                     verificajogada2(e);
                     nivel = e->nivel;
                     resultado = gameOver(e, &contaX, &contaO);
+                    printa(*e, &contaX, &contaO);
+                    printf("\n#X = %d   #O = %d\n", contaX, contaO);
                 } else {
                     state = 0;
                     e->peca = VAZIA;

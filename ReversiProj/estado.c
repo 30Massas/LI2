@@ -268,9 +268,10 @@ int readGame (ESTADO *e, char linha[]) {
         else {
             e->modo = 1;
             fscanf(file, "%c", &nivel);
-            if (nivel == '1') e->nivel = 1;
-            else if (nivel == '2') e->nivel = 2;
-            else if (nivel == '3') e->nivel = 3;
+            e->nivel = atoi(&nivel);
+            //   if (nivel == '1') e->nivel = 1;
+         //   else if (nivel == '2') e->nivel = 2;
+         //   else if (nivel == '3') e->nivel = 3;
         }
 
         if (peca == 'X') e->peca = VALOR_X;

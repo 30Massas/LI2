@@ -44,6 +44,12 @@ int main() {
             }
             case 'N' :
             { // cria novo jogo
+                ESTADO *aux = e;
+                while (aux->ant != NULL) {
+                    aux = aux->ant;
+                    free(e);
+                    e = aux;
+                }
                 novoEstado(e,linha);
                 state = 1;
                 resultado = 0;

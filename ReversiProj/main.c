@@ -236,6 +236,19 @@ int main() {
                     resultado = gameOver(e, &contaX, &contaO);
                     printa(*e, &contaX, &contaO);
                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                    if (!playerPlayable(e) && oppPlayable(e)) {
+                        if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
+                        else printf("Jogador O sem jogadas válidas!\n");
+                        trocapeca(e);
+                        if (e->modo == 1) {
+                            maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999, -9999);
+                            joga(e, line, col);
+                            printa(*e, &contaX, &contaO);
+                            resultado = gameOver(e, &contaX, &contaO);
+                            printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                            trocapeca(e);
+                        }
+                    }
                 }
                 else {
                     aux = e;

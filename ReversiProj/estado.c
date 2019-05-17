@@ -267,16 +267,12 @@ int readGame (ESTADO *e, char linha[]) {
         if (modo == 'M') e->modo = 0;
         else {
             e->modo = 1;
-            fscanf(file, "%c", &nivel);
+            fscanf(file, "%c ", &nivel);
             e->nivel = atoi(&nivel);
-            //   if (nivel == '1') e->nivel = 1;
-         //   else if (nivel == '2') e->nivel = 2;
-         //   else if (nivel == '3') e->nivel = 3;
         }
 
         if (peca == 'X') e->peca = VALOR_X;
         else e->peca = VALOR_O;
-        fseek(file, 1, SEEK_CUR);
         for (i = 0; i < 8; i++) {
             fgets(linha, 50, file);
             j = 0;
@@ -479,7 +475,7 @@ int oppPlayable (ESTADO *e){
 
 void trocapeca (ESTADO *e){
     if (e->peca == VALOR_X) e->peca = VALOR_O;
-    else e->peca = VALOR_X;
+    else if (e->peca == VALOR_O) e->peca = VALOR_X;
     verificajogada2(e);
 }
 

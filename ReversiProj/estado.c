@@ -355,7 +355,6 @@ void whereCanIPut (ESTADO *e){
 void novoEstado (ESTADO *e, char linha[]){
     int i,k;
     char c1,c2;
-    e->ant = NULL;
     for (i=0;i<8;i++){
         for (k=0;k<8;k++){
             e->grelha[i][k] = VAZIA;

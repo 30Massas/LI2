@@ -15,10 +15,10 @@ int main() {
     int line, col;
     int nivel = 0;
     VALOR piece = VAZIA; // auxiliar p/ bot
-    ESTADO *e = malloc(sizeof(struct estado));
+    ESTADO *e = NULL;
     interface();
     do {
-        if (e->peca == VAZIA) printf("Reversi ? => ");
+        if (e == NULL || e->peca == VAZIA) printf("Reversi ? => ");
         else if (e->peca == VALOR_O) printf("Reversi O => ");
         else printf("Reversi X => ");
 
@@ -42,6 +42,14 @@ int main() {
                 break;
             }
             case 'N' : { // cria novo jogo
+                if (e == NULL) {
+                    e = malloc(sizeof(struct estado));
+                    e->ant = NULL;
+                } else {
+                    ESTADO *aux = malloc(sizeof(struct estado));
+                    copyEstado(e, aux);
+                    e->ant = aux;
+                }
                 novoEstado(e, linha);
                 state = 1;
                 resultado = 0;
@@ -53,6 +61,15 @@ int main() {
                 sscanf(linha, "%c %c %d", &c1, &c2, &nivel);
                 if (nivel < 1 || (toupper(c2) != 'X' && toupper(c2) != 'O'));
                 else {
+                    if (e == NULL) {
+                        e = malloc(sizeof(struct estado));
+                        e->ant = NULL;
+                    }
+                    else {
+                        ESTADO *aux = malloc(sizeof(struct estado));
+                        copyEstado(e, aux);
+                        e->ant = aux;
+                    }
                     novoEstado(e, linha);
                     state = 1;
                     resultado = 0;
@@ -67,7 +84,6 @@ int main() {
                         trocapeca(e);
                     } else piece = VALOR_O;
                     printa(*e, &contaX, &contaO);
-                    printf("O Bot jogou em (%d,%d)\n",line,col);
                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                 }
                 break;
@@ -198,6 +214,16 @@ int main() {
                 break;
             }
             case 'L' : {
+                    ESTADO *aux = malloc(sizeof(struct estado));
+                if (e==NULL) {
+                    e = malloc(sizeof(struct estado));
+                    e->ant = NULL;
+                }
+                else {
+
+                    copyEstado(e, aux);
+                    e->ant = aux;
+                }
                 if (readGame(e, linha)) {
                     if (e->modo == 1) {
                         if (e->peca == VALOR_O) piece = VALOR_X;
@@ -210,11 +236,13 @@ int main() {
                     resultado = gameOver(e, &contaX, &contaO);
                     printa(*e, &contaX, &contaO);
                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
-                } else {
-                    state = 0;
-                    e->peca = VAZIA;
-                    resultado = 0;
                 }
+                else {
+                    aux = e;
+                    e = e->ant;
+                    free(aux);
+                }
+
                 break;
             }
             case 'Q' : {

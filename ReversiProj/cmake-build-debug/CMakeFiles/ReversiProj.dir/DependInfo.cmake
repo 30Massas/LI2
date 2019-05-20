@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/joao/LI2/ReversiProj/botfunction.c" "/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/botfunction.c.o"
-  "/home/joao/LI2/ReversiProj/estado.c" "/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/estado.c.o"
-  "/home/joao/LI2/ReversiProj/main.c" "/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/main.c.o"
+  "/home/massas/CLionProjects/LI2/ReversiProj/botfunction.c" "/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/botfunction.c.o"
+  "/home/massas/CLionProjects/LI2/ReversiProj/estado.c" "/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/estado.c.o"
+  "/home/massas/CLionProjects/LI2/ReversiProj/main.c" "/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

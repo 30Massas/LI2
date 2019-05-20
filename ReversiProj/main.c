@@ -213,7 +213,7 @@ int main() {
                 else printf("Jogador sem jogadas válidas");
                 break;
             }
-            case 'L' : {
+            case 'L' : { // Lê um jogo que foi gravado
                     ESTADO *aux = malloc(sizeof(struct estado));
                 if (e==NULL) {
                     e = malloc(sizeof(struct estado));

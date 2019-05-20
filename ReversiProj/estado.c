@@ -2,7 +2,7 @@
 #include "estado.h"
 #include "botfunction.h"
 
-// exemplo de uma função para imprimir o estado (Tabuleiro)
+// Função que imprime o estado do jogo (Tabuleiro)
 void printa(ESTADO e, int *contaX,int *contaO)
 {
     char c = ' ';
@@ -36,9 +36,13 @@ void printa(ESTADO e, int *contaX,int *contaO)
 
 }
 
+// Função que coloca a peça no tabuleiro, de acordo com as posições recebidas
+
 void poepeca (ESTADO *e,int x, int y){
     e->grelha[x][y] = e->peca;
 }
+
+// Função que modifica as peças contrárias numa jogada
 
 void joga (ESTADO *e, int x, int y){
     int c=y,l=x;
@@ -154,6 +158,9 @@ void joga (ESTADO *e, int x, int y){
     else;
     //-----------------------------------------------------
 }
+
+// Função que cria um "tabuleiro imaginário" com as jogadas que forem válidas
+
 void verificajogada2 (ESTADO *e){
     int i,k;
     for (i=0;i<8;i++){
@@ -162,6 +169,9 @@ void verificajogada2 (ESTADO *e){
         }
     }
 }
+
+// Função que verifica se uma jogada é válida nas diferentes direções
+
 int verificajogada (ESTADO *e, int x, int y) {
     int flag = 0;
     if (e->grelha[x][y] != VAZIA);
@@ -250,6 +260,8 @@ int verificajogada (ESTADO *e, int x, int y) {
     return flag;
 }
 
+// Função que lê um jogo que tenha sido gravado
+
 int readGame (ESTADO *e, char linha[]) {
     FILE *file;
     char modo;
@@ -296,6 +308,8 @@ int readGame (ESTADO *e, char linha[]) {
     return aux;
 }
 
+// FUnção que guarda o jogo, isto é o seu estado e todas as informações necessárias
+
 void guardajogo (ESTADO *e , char linha[]) {
     FILE *file;
     char modo;
@@ -333,6 +347,8 @@ void guardajogo (ESTADO *e , char linha[]) {
     fclose(file);
 }
 
+// Função de auxílio ao jogador que mostra locais de jogada válida
+
 void whereCanIPut (ESTADO *e){
     int i,k;
     printf("  1 2 3 4 5 6 7 8\n");
@@ -347,6 +363,8 @@ void whereCanIPut (ESTADO *e){
         putchar('\n');
     }
 }
+
+// Função que cria um nova estado, utilizada aquando da criação de um novo jogo
 
 void novoEstado (ESTADO *e, char linha[]){
     int i,k;
@@ -372,6 +390,8 @@ void novoEstado (ESTADO *e, char linha[]){
     verificajogada2(e);
 }
 
+// Função que copia um estado
+
 void copyEstado (ESTADO *e, ESTADO *aux){
     aux->peca = e->peca;
     aux->modo = e->modo;
@@ -385,6 +405,8 @@ void copyEstado (ESTADO *e, ESTADO *aux){
     }
     aux->ant = e->ant;
 }
+
+// Função que indica ao jogador a melhor jogada de acordo com o tabuleiro
 
 void giveHint (ESTADO *e) {
     int x,y;
@@ -417,6 +439,8 @@ void giveHint (ESTADO *e) {
     }
 }
 
+// Função que verifica se as condições de fim de jogo se verificam e, em caso afirmativo, decreta o vencedor
+
 int gameOver (ESTADO *e, int *contaX, int *contaO) {
     int resultado = 0;
     if (*contaX + *contaO == 64) {
@@ -443,12 +467,17 @@ int gameOver (ESTADO *e, int *contaX, int *contaO) {
     }
     return resultado;
 }
+
+// Função que verifica se é possível continuar o jogo
+
 int checkIfPlayable (ESTADO *e){
     int resultado = 0;
     if (!playerPlayable(e) && !oppPlayable(e)) resultado = 0;
     else resultado = 1;
     return resultado;
 }
+
+// Função que verifica se é possível o jogador jogar
 
 int playerPlayable (ESTADO *e){
     int i,k;
@@ -460,6 +489,9 @@ int playerPlayable (ESTADO *e){
     }
     return flag1;
 }
+
+// Função que verifica se é possível o oponente jogar
+
 int oppPlayable (ESTADO *e){
     int i,k;
     int flag1 = 0;
@@ -473,11 +505,15 @@ int oppPlayable (ESTADO *e){
     return flag1;
 }
 
+// Função que troca a peça atual
+
 void trocapeca (ESTADO *e){
     if (e->peca == VALOR_X) e->peca = VALOR_O;
     else if (e->peca == VALOR_O) e->peca = VALOR_X;
     verificajogada2(e);
 }
+
+// Função que imprime uma lista de comandos passíveis de serem utilizados pelo jogador
 
 void interface (){
     printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");

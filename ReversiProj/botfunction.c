@@ -1,5 +1,7 @@
 #include "estado.h"
 
+// Função que recebe um tabuleiro com pontuações fixas e faz um somatório de pontos benéficos à melhor jogada
+
 int contaPontos (ESTADO *e,int x, int y) {
     int soma = 0;
     int i, k;
@@ -19,6 +21,7 @@ int contaPontos (ESTADO *e,int x, int y) {
 
     // ----------------------------
 
+    // Somatório positivo
 
     // dependendo das posições em que se encontram as suas peças, é feito um somatório
     for (i = 0; i < 8; i++) {
@@ -61,7 +64,7 @@ int contaPontos (ESTADO *e,int x, int y) {
     else aux->peca = VALOR_X;
 
 
-
+    //Somatório negativo
 
     for (i = 0; i < 8; i++) {
         for (k = 0; k < 8; k++) {
@@ -93,14 +96,17 @@ int contaPontos (ESTADO *e,int x, int y) {
     }
     if (flag == 1) soma-= 8000;
 
+    // É feito um somatório negativo e um positivo para utilização no algoritmo
 
     free(aux);
     return soma;
 }
 
 
+// Função que averigua a jogada com melhor resultado, utilizando o algortimo alpha-beta pruning
+
 int maxplay (ESTADO *e, int *x, int *y,int nivel, int orig, int alpha, int beta) {
-    int result;
+    int result=0;
     if (nivel <= 0);
     else if (nivel == 1) {
         int i, k;

@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/clion-2018.3.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/joao/clion-2018.3.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /opt/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/joao/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/massas/CLionProjects/LI2/ReversiProj
+CMAKE_SOURCE_DIR = /home/joao/LI2/ReversiProj
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug
+CMAKE_BINARY_DIR = /home/joao/LI2/ReversiProj/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ReversiProj.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/ReversiProj.dir/flags.make
 
 CMakeFiles/ReversiProj.dir/main.c.o: CMakeFiles/ReversiProj.dir/flags.make
 CMakeFiles/ReversiProj.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ReversiProj.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/main.c.o   -c /home/massas/CLionProjects/LI2/ReversiProj/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ReversiProj.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/main.c.o   -c /home/joao/LI2/ReversiProj/main.c
 
 CMakeFiles/ReversiProj.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ReversiProj.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/massas/CLionProjects/LI2/ReversiProj/main.c > CMakeFiles/ReversiProj.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/joao/LI2/ReversiProj/main.c > CMakeFiles/ReversiProj.dir/main.c.i
 
 CMakeFiles/ReversiProj.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ReversiProj.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/massas/CLionProjects/LI2/ReversiProj/main.c -o CMakeFiles/ReversiProj.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/joao/LI2/ReversiProj/main.c -o CMakeFiles/ReversiProj.dir/main.c.s
 
 CMakeFiles/ReversiProj.dir/estado.c.o: CMakeFiles/ReversiProj.dir/flags.make
 CMakeFiles/ReversiProj.dir/estado.c.o: ../estado.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ReversiProj.dir/estado.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/estado.c.o   -c /home/massas/CLionProjects/LI2/ReversiProj/estado.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ReversiProj.dir/estado.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/estado.c.o   -c /home/joao/LI2/ReversiProj/estado.c
 
 CMakeFiles/ReversiProj.dir/estado.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ReversiProj.dir/estado.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/massas/CLionProjects/LI2/ReversiProj/estado.c > CMakeFiles/ReversiProj.dir/estado.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/joao/LI2/ReversiProj/estado.c > CMakeFiles/ReversiProj.dir/estado.c.i
 
 CMakeFiles/ReversiProj.dir/estado.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ReversiProj.dir/estado.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/massas/CLionProjects/LI2/ReversiProj/estado.c -o CMakeFiles/ReversiProj.dir/estado.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/joao/LI2/ReversiProj/estado.c -o CMakeFiles/ReversiProj.dir/estado.c.s
 
 CMakeFiles/ReversiProj.dir/botfunction.c.o: CMakeFiles/ReversiProj.dir/flags.make
 CMakeFiles/ReversiProj.dir/botfunction.c.o: ../botfunction.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ReversiProj.dir/botfunction.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/botfunction.c.o   -c /home/massas/CLionProjects/LI2/ReversiProj/botfunction.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ReversiProj.dir/botfunction.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ReversiProj.dir/botfunction.c.o   -c /home/joao/LI2/ReversiProj/botfunction.c
 
 CMakeFiles/ReversiProj.dir/botfunction.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ReversiProj.dir/botfunction.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/massas/CLionProjects/LI2/ReversiProj/botfunction.c > CMakeFiles/ReversiProj.dir/botfunction.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/joao/LI2/ReversiProj/botfunction.c > CMakeFiles/ReversiProj.dir/botfunction.c.i
 
 CMakeFiles/ReversiProj.dir/botfunction.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ReversiProj.dir/botfunction.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/massas/CLionProjects/LI2/ReversiProj/botfunction.c -o CMakeFiles/ReversiProj.dir/botfunction.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/joao/LI2/ReversiProj/botfunction.c -o CMakeFiles/ReversiProj.dir/botfunction.c.s
 
 # Object files for target ReversiProj
 ReversiProj_OBJECTS = \
@@ -110,7 +110,7 @@ ReversiProj: CMakeFiles/ReversiProj.dir/estado.c.o
 ReversiProj: CMakeFiles/ReversiProj.dir/botfunction.c.o
 ReversiProj: CMakeFiles/ReversiProj.dir/build.make
 ReversiProj: CMakeFiles/ReversiProj.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable ReversiProj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable ReversiProj"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ReversiProj.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/ReversiProj.dir/clean:
 .PHONY : CMakeFiles/ReversiProj.dir/clean
 
 CMakeFiles/ReversiProj.dir/depend:
-	cd /home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/massas/CLionProjects/LI2/ReversiProj /home/massas/CLionProjects/LI2/ReversiProj /home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug /home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug /home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/joao/LI2/ReversiProj/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/joao/LI2/ReversiProj /home/joao/LI2/ReversiProj /home/joao/LI2/ReversiProj/cmake-build-debug /home/joao/LI2/ReversiProj/cmake-build-debug /home/joao/LI2/ReversiProj/cmake-build-debug/CMakeFiles/ReversiProj.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ReversiProj.dir/depend
 

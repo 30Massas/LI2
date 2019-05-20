@@ -1,4 +1,4 @@
-# Install script for directory: /home/massas/CLionProjects/LI2/ReversiProj
+# Install script for directory: /home/joao/LI2/ReversiProj
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/massas/CLionProjects/LI2/ReversiProj/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/joao/LI2/ReversiProj/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

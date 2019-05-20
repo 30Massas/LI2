@@ -339,7 +339,6 @@ void guardajogo (ESTADO *e , char linha[]) {
         for (k = 0; k<8;k++){
             if (e->grelha[i][k] == VALOR_X) fprintf(file,"X ");
             else if (e->grelha[i][k] == VALOR_O) fprintf(file,"O ");
-            //else if (verificajogada(e,i,k)) fprintf(file,". ");
             else fprintf(file,"- ");
         }
         fprintf(file,"\n");
@@ -410,7 +409,7 @@ void copyEstado (ESTADO *e, ESTADO *aux){
 
 void giveHint (ESTADO *e) {
     int x,y;
-    maxplay(e,&x,&y,7,7,9999,-9999);
+    maxplay(e,&x,&y,5,5,9999,-9999);
     char c = ' ';
 
     printf("  1 2 3 4 5 6 7 8\n");

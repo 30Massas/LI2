@@ -5,6 +5,8 @@
 #include "botfunction.h"
 #include "math.h"
 
+
+
 int main() {
     char c1, c2;
     char linha[50];
@@ -24,19 +26,6 @@ int main() {
 
         fgets(linha, 50, stdin);
         switch (toupper(linha[0])) {
-            case 'T' : {
-                sscanf(linha, "%c %c %d", &c1, &c2, &nivel);
-                if (nivel < 1);
-                else {
-                    novoEstado(e, linha);
-                    piece = e->peca;
-                    state = 1;
-                    resultado = 0;
-                    e->modo = 3;
-                    e->nivel = nivel;
-                }
-                break;
-            }
             case '?' : { // Mostra os comandos disponíveis
                 interface();
                 break;
@@ -64,8 +53,7 @@ int main() {
                     if (e == NULL) {
                         e = malloc(sizeof(struct estado));
                         e->ant = NULL;
-                    }
-                    else {
+                    } else {
                         ESTADO *aux = malloc(sizeof(struct estado));
                         copyEstado(e, aux);
                         e->ant = aux;
@@ -82,9 +70,11 @@ int main() {
                         printa(*e, &contaX, &contaO);
                         printf("\n#X = %d   #O = %d\n", contaX, contaO);
                         trocapeca(e);
-                    } else piece = VALOR_O;
-                    printa(*e, &contaX, &contaO);
-                    printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                    } else {
+                        piece = VALOR_O;
+                        printa(*e, &contaX, &contaO);
+                        printf("\n#X = %d   #O = %d\n", contaX, contaO);
+                    }
                 }
                 break;
             }
@@ -125,14 +115,12 @@ int main() {
                         if (resultado == 0 && e->peca == piece) {
                             // É certo que o bot pode jogar
                             do {
-                                // As funções do bot vão aqui
-
-                                printf("%d\n",
-                                       maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999,-9999)); // a line e a col ficam com as posições onde deve jogar
+                                maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999,
+                                        -9999); // a line e a col ficam com as posições onde deve jogar
 
                                 joga(e, line, col);
                                 printa(*e, &contaX, &contaO);
-                                printf("O Bot jogou em (%d,%d)\n",line,col);
+                                printf("O Bot jogou em (%d,%d)\n", line, col);
                                 printf("\n#X = %d   #O = %d\n", contaX, contaO);
 
                             } while (!oppPlayable(e) && playerPlayable(e));
@@ -146,34 +134,6 @@ int main() {
                         }
                         // ---------------------------------------------------------------
 
-                    } else if (e->modo == 3) {
-                        do {
-                            if (!playerPlayable(e) && oppPlayable(e)) {
-                                if (e->peca == VALOR_X) printf("Jogador X sem jogadas válidas!\n");
-                                else printf("Jogador O sem jogadas válidas!\n");
-                                trocapeca(e);
-                            } else if (playerPlayable(e)) {
-                                do {
-                                    // As funções do bot vão aqui
-                                    printf("%d\n",
-                                           maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1,
-
-
-                                                   9999,
-                                                   -9999)); // A line e a col ficam com as posições onde deve jogar
-
-                                    joga(e, line, col);
-                                    printa(*e, &contaX, &contaO);
-                                    printf("\n#X = %d   #O = %d\n", contaX, contaO);
-
-                                } while (playerPlayable(e) && !oppPlayable(e));
-                                if (oppPlayable(e)) trocapeca(e);
-                                else resultado = gameOver(e, &contaX, &contaO);
-
-                                // -----------------
-                                // Se o jogador não puder jogar
-                            }
-                        } while (resultado == 0);
                     }
                 } else printf("Jogo ainda não criado // N <peça>\n");
                 break;

@@ -517,6 +517,7 @@ void trocapeca (ESTADO *e){
 
 void interface (){
     printf("N <peca> // novo jogo em que o primeiro a jogar é o jogador com peça\n");
+    printf("A <peça> <nivel> // novo jogo contra um bot em que o bot joga com a peça especificada e no nível especificado\n");
     printf("L <ficheiro> // ler um jogo de ficheiro\n");
     printf("E <ficheiro> // Guardar jogo\n");
     printf("J <L> <C> // Jogar [linha] [coluna]\n");

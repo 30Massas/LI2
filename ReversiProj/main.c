@@ -14,7 +14,7 @@ int main() {
     int state = 0;
     int line, col;
     int nivel = 0;
-    VALOR piece = VAZIA; // auxiliar p/ bot
+    VALOR piece = VAZIA; // Auxiliar p/ bot
     ESTADO *e = NULL;
     interface();
     do {
@@ -37,11 +37,11 @@ int main() {
                 }
                 break;
             }
-            case '?' : {
+            case '?' : { // Mostra os comandos disponíveis
                 interface();
                 break;
             }
-            case 'N' : { // cria novo jogo
+            case 'N' : { // Cria novo jogo
                 if (e == NULL) {
                     e = malloc(sizeof(struct estado));
                     e->ant = NULL;
@@ -57,7 +57,7 @@ int main() {
                 printf("\n#X = %d   #O = %d\n", contaX, contaO);
                 break;
             }
-            case 'A' : {
+            case 'A' : { // Modo automático
                 sscanf(linha, "%c %c %d", &c1, &c2, &nivel);
                 if (nivel < 1 || (toupper(c2) != 'X' && toupper(c2) != 'O'));
                 else {
@@ -88,21 +88,21 @@ int main() {
                 }
                 break;
             }
-            case 'E' : {
+            case 'E' : { // Guarda o jogo
                 if (state == 1) guardajogo(e, linha);
                 break;
             }
-            case 'J' : {
+            case 'J' : { // Funções de jogada
                 if (state == 1 && resultado == 0) {
 
 
-                    // modo manual-automatico
+                    // Modo manual-automatico
                     if (e->modo == 0 || e->modo == 1) {
                         if (e->peca != piece) {
                             sscanf(linha, "%c %d %d", &c1, &x, &y);
                             if (e->validade[x - 1][y - 1]) {
 
-                                //avançar o estado
+                                // Avançar o estado
                                 ESTADO *aux = malloc(sizeof(struct estado));
 
                                 copyEstado(e, aux);
@@ -121,15 +121,14 @@ int main() {
 
                             } else printf("Jogada inválida. Introduza uma jgoada válida.\n");
                         }
-                        // modo automático
+                        // Caso de modo automático
                         if (resultado == 0 && e->peca == piece) {
-                            // é certo que o bot pode jogar
+                            // É certo que o bot pode jogar
                             do {
-                                // as funções do bot vão aqui
+                                // As funções do bot vão aqui
 
                                 printf("%d\n",
-                                       maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999,
-                                               -9999)); // a line e a col ficam com as posições onde deve jogar
+                                       maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999,-9999)); // a line e a col ficam com as posições onde deve jogar
 
                                 joga(e, line, col);
                                 printa(*e, &contaX, &contaO);
@@ -141,7 +140,7 @@ int main() {
                             else resultado = gameOver(e, &contaX, &contaO);
 
                             // -----------------
-                            // se o jogador não puder jogar
+                            // Se o jogador não puder jogar
 
 
                         }
@@ -155,13 +154,13 @@ int main() {
                                 trocapeca(e);
                             } else if (playerPlayable(e)) {
                                 do {
-                                    // as funções do bot vão aqui
+                                    // As funções do bot vão aqui
                                     printf("%d\n",
                                            maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1,
 
 
                                                    9999,
-                                                   -9999)); // a line e a col ficam com as posições onde deve jogar
+                                                   -9999)); // A line e a col ficam com as posições onde deve jogar
 
                                     joga(e, line, col);
                                     printa(*e, &contaX, &contaO);
@@ -172,7 +171,7 @@ int main() {
                                 else resultado = gameOver(e, &contaX, &contaO);
 
                                 // -----------------
-                                // se o jogador não puder jogar
+                                // Se o jogador não puder jogar
                             }
                         } while (resultado == 0);
                     }
@@ -180,19 +179,19 @@ int main() {
                 break;
             }
 
-            case 'P' : {
+            case 'P' : { // Imprime o estado atual do jogo
                 if (state == 1) {
                     printa(*e, &contaX, &contaO);
                     printf("\n#X = %d   #O = %d\n", contaX, contaO);
                 } else printf("Jogo ainda não criado // N <peça>\n");
                 break;
             }
-            case 'S' : { // coloca pontos nos sítios de jogadas válidas
+            case 'S' : { // Coloca pontos nos sítios de jogadas válidas
                 if (state == 1) whereCanIPut(e);
                 else printf("Jogo ainda não criado // N <peça>\n");
                 break;
             }
-            case 'U' : { // desfaz a jogada anterior
+            case 'U' : { // Desfaz a jogada anterior
                 if (state == 1) {
                     if (e->ant == NULL);
                     else {
@@ -258,7 +257,7 @@ int main() {
 
                 break;
             }
-            case 'Q' : {
+            case 'Q' : { // Sai do jogo
                 exit(0);
             }
         }

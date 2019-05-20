@@ -96,7 +96,6 @@ int contaPontos (ESTADO *e,int x, int y) {
     }
     if (flag == 1) soma-= 8000;
 
-    // É feito um somatório negativo e um positivo para utilização no algoritmo
 
     free(aux);
     return soma;

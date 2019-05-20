@@ -68,6 +68,7 @@ int main() {
                         maxplay(e, &line, &col, nivel * 2 + 1, nivel * 2 + 1, 9999, -9999);
                         joga(e, line, col);
                         printa(*e, &contaX, &contaO);
+                        printf("O Bot jogou em (%d,%d)\n", line+1, col+1);
                         printf("\n#X = %d   #O = %d\n", contaX, contaO);
                         trocapeca(e);
                     } else {
@@ -120,7 +121,7 @@ int main() {
 
                                 joga(e, line, col);
                                 printa(*e, &contaX, &contaO);
-                                printf("O Bot jogou em (%d,%d)\n", line, col);
+                                printf("O Bot jogou em (%d,%d)\n", line+1, col+1);
                                 printf("\n#X = %d   #O = %d\n", contaX, contaO);
 
                             } while (!oppPlayable(e) && playerPlayable(e));
